@@ -1,5 +1,5 @@
-source .bash/exports.sh
-source .bash/services.sh
+source ~/.bash/exports.sh
+source ~/.bash/services.sh
 
 alias ..='cd ..'
 alias :q="exit"

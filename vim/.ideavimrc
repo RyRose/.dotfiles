@@ -1,0 +1,6 @@
+# Custom .vimrc for intellij IDEs.
+# https://github.com/JetBrains/ideavim?tab=readme-ov-file#Files
+
+# Turn off bell sound.
+set belloff=all
+set noerrorbells

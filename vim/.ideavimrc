@@ -4,3 +4,4 @@
 # Turn off bell sound.
 set belloff=all
 set noerrorbells
+set visualbell

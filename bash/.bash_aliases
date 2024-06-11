@@ -1,5 +1,10 @@
-source ~/.bash/exports.sh
-source ~/.bash/services.sh
+if [ -d .bash ]; then
+  for file in .bash/*.sh; do
+    if [ -f ${file} ]; then
+      source "${file}"
+    fi
+  done
+fi
 
 alias ..='cd ..'
 alias :q="exit"
@@ -10,3 +15,4 @@ alias jl='jupyter lab'
 alias jn='jupyter notebook'
 alias sl='ls'
 
+alias vim='nvim'

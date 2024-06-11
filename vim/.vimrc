@@ -128,6 +128,11 @@ autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
 " }}}
 
+" https://vim.fandom.com/wiki/Highlight_unwanted_spaces {{{
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+" }}}
+
 "}}}
 
 " Project-specific vimrc config options. Must be at end of file! {{{

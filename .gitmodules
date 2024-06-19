@@ -3,4 +3,4 @@
 	url = https://github.com/tmux-plugins/tpm.git
 [submodule "nvim/.config/nvim"]
 	path = nvim/.config/nvim
-	url = git@github.com:RyRose/kickstart.nvim.git
+	url = https://github.com/RyRose/kickstart.nvim.git

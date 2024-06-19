@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export XCURSOR_SIZE=16
 export LESS="$LESS -R -Q"

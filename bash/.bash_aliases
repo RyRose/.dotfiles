@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Source .bash/ files.
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-for file in "${SCRIPT_DIR}/.bash/"*.sh; do
-  [ -s "${file}" ] && source "${file}"
-done
+# Source ~/.bash files.
+if [[ -d ~/.bash ]]; then
+  for file in ~/.bash/*.sh; do
+    [ -s "${file}" ] && source "${file}"
+  done
+fi
 
 # Enable starship if it exists.
 command -v starship &> /dev/null && eval "$(starship init bash)"

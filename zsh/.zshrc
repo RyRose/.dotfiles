@@ -1,10 +1,11 @@
 #!/usr/bin/env zsh
 
-# Source .zsh/ files.
-SCRIPT_DIR="${0:a:h}"
-for file in "${SCRIPT_DIR}/.zsh/"*.sh; do
-  [ -s "${file}" ] && source "${file}"
-done
+# Source ~/.zsh files.
+if [[ -d ~/.zsh ]]; then
+  for file in ~/.zsh/*.sh; do
+    [ -s "${file}" ] && source "${file}"
+  done
+fi
 
 # Turn off all beeps
 unsetopt BEEP

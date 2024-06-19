@@ -1,11 +1,14 @@
 #!/usr/bin/env zsh
 
-# Source ~/.zsh files.
+# Source ~/.env and ~/.zsh files.
+set -eu
+[ -s ~/.env ] && source ~/.env
 if [[ -d ~/.zsh ]]; then
   for file in ~/.zsh/*.sh; do
     [ -s "${file}" ] && source "${file}"
   done
 fi
+set +eu
 
 # Turn off all beeps
 unsetopt BEEP

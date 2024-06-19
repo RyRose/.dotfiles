@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-# Source ~/.bash files.
+# Source ~/.env and ~/.zsh files.
+set -eu
+[ -s ~/.env ] && source ~/.env
 if [[ -d ~/.bash ]]; then
   for file in ~/.bash/*.sh; do
     [ -s "${file}" ] && source "${file}"
   done
 fi
+set +eu
 
 # Enable starship if it exists.
 command -v starship &> /dev/null && eval "$(starship init bash)"

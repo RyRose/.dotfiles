@@ -1,0 +1,18 @@
+#!/usr/bin/env fish
+
+# Disable beep in less binary.
+set --append LESS "-R -Q"
+
+# Default to using vim.
+set EDITOR vim
+set VISUAL vim
+
+# Installed Go binaries.
+fish_add_path "$HOME/go/bin"
+
+# Custom binaries under home directory.
+fish_add_path "$HOME/bin"
+
+# Install Ruby Gems to ~/gems
+fish_add_path "$HOME/gems/bin"
+set GEM_HOME "$HOME/gems"

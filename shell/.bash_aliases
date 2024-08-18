@@ -12,6 +12,9 @@ for service in "${services[@]}"; do
   sudo systemctl start "${service}"
 done
 
+# Use less instead of more.
+export PAGER="less"
+
 # Use en_US.UTF-8 as the default locale.
 export LANG=en_US.UTF-8
 

@@ -23,17 +23,17 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # Installed Go binaries.
-export PATH="$PATH:~/go/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 # Custom binaries under home directory.
-export PATH="$PATH:~/bin"
+export PATH="$PATH:$HOME/bin"
 
 # Install Ruby Gems to ~/gems
-export PATH="$PATH:~/.gems/bin"
-export GEM_HOME="~/.gems"
+export PATH="$PATH:$HOME/.gems/bin"
+export GEM_HOME="$HOME/.gems"
 
 # Add anaconda binaries to PATH.
-export PATH="$PATH:~/anaconda3/bin"
+export PATH="$PATH:$HOME/anaconda3/bin"
 
 # Add CUDA config for ML work.
 export CUDA_DIR="~/anaconda3/nvvm"

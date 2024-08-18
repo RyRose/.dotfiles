@@ -1,0 +1,3 @@
+@reboot ~/.cron/startup.sh 2>&1 >> ~/.logs/startup.log
+@reboot logrotate --state ~/.logs/logrotate.status ~/.cron/logrotate.conf 2>&1 >> ~/.logs/logrotate.log
+

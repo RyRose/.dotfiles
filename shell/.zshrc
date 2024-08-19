@@ -1,7 +1,16 @@
 #!/usr/bin/env zsh
 
+# Source antigen.
+if [ -f ~/.config/antigen.zsh ]; then
+    source ~/.config/antigen.zsh
+    antigen use oh-my-zsh
+    antigen bundle zsh-users/zsh-autosuggestions
+    antigen bundle zsh-users/zsh-syntax-highlighting
+    antigen apply
+fi
+
 # Source bash aliases.
-[[ -f ~/.bash_aliases ]] &&. ~/.bash_aliases
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # Turn off all beeps
 unsetopt BEEP

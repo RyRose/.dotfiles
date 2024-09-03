@@ -13,6 +13,11 @@ fi
 # Source bash aliases.
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
+# Ignore history for commands referencing filesystem paths in lieu of autocomplete.
+# Filesystem suggestions are more relevant.
+export ZSH_AUTOSUGGEST_HISTORY_IGNORE="(cd|ls|ll|vim) *"
+
+# Default to history then autocomplete if not in the history.
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
 # Accept suggestions with ctrl-y to match nvim.

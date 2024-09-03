@@ -20,7 +20,9 @@ export ZSH_AUTOSUGGEST_HISTORY_IGNORE="(cd|ls|ll|vim) *"
 # Default to history then autocomplete if not in the history.
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
-# Accept suggestions with ctrl-y to match nvim.
+# Enable vi mode and accept suggestions with ctrl-y to match nvim.
+# Must be in this order to work properly.
+bindkey -v
 bindkey '^y' autosuggest-accept
 
 # Turn off all beeps

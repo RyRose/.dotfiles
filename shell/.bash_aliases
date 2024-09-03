@@ -1,17 +1,5 @@
 # .bash_aliases to be sourced by both zsh and bash.
 
-# Enable cron and ssh.
-services=(
-  cron
-  ssh
-)
-for service in "${services[@]}"; do
-  if [[ "$(systemctl is-active ${service})" == "active" ]]; then
-    continue
-  fi
-  sudo systemctl start "${service}"
-done
-
 # Use less instead of more.
 export PAGER="less"
 

@@ -29,6 +29,9 @@ unsetopt BEEP
 # Turn off autocomplete beeps
 unsetopt LIST_BEEP
 
+# Enable dotfiles to be globbed. This allows the use of tab to show hidden files.
+setopt globdots
+
 # Enable starship prompt
 command -v starship &> /dev/null && eval "$(starship init zsh)"
 

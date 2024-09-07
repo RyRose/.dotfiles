@@ -4,6 +4,7 @@
 if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
     (
         cd "$HOME/.dotfiles" || exit
+        git submodule init &>/dev/null
         git submodule update &>/dev/null
         stow nvim
     )

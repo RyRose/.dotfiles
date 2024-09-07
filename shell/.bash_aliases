@@ -1,5 +1,14 @@
 # .bash_aliases to be sourced by both zsh and bash.
 
+# Auto-install neovim dotfiles if not installed.
+if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
+    (
+        cd "$HOME/.dotfiles" || exit
+        git submodule update &>/dev/null
+        stow nvim
+    )
+fi
+
 # Use less instead of more.
 export PAGER="less"
 

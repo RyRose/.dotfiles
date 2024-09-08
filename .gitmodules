@@ -1,4 +1,4 @@
-[submodule "nvim/.config/nvim"]
-	path = nvim/.config/nvim
-	url = https://github.com/RyRose/kickstart.nvim.git
-	branch = main
+[submodule "base/.config/nvim"]
+    path = base/.config/nvim
+    url = https://github.com/RyRose/kickstart.nvim.git
+    branch = main

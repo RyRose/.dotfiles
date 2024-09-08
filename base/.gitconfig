@@ -1,5 +1,6 @@
+[include]
+  path = ~/.config/.gitconfig
 
-# https://github.com/dandavison/delta
 [core]
     pager = delta
 
@@ -19,10 +20,5 @@
 [diff]
     colorMoved = default
 
-[user]
-    name = RyRose
-    email = RyRose@users.noreply.github.com
 [init]
     defaultBranch = main
-[credential "https://github.com"]
-    helper = !/usr/bin/gh auth git-credential

@@ -40,7 +40,7 @@ setopt globdots
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
-command -v fzf &>/dev/null && source <(fzf --zsh)
+command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

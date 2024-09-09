@@ -1,6 +1,2 @@
-# Use vim as the default editor on the NAS.
-# Neovim doesn't work well and development shouldn't
-# generally occur on the nas.
-export EDITOR=vim
-export VISUAL=vim
-alias vim=vim
+# Use binaries on ~/Data to avoid consuming storage in $HOME directory.
+export PATH="$PATH:$HOME/Data/bin"

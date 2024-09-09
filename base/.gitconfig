@@ -21,4 +21,7 @@
     defaultBranch = main
 
 [include]
-  path = ~/.config/.gitconfig
+    path = ~/.config/.gitconfig
+
+[alias]
+    root = rev-parse --show-toplevel

@@ -1,6 +1,3 @@
-[include]
-  path = ~/.config/.gitconfig
-
 [core]
     pager = delta
 
@@ -22,3 +19,6 @@
 
 [init]
     defaultBranch = main
+
+[include]
+  path = ~/.config/.gitconfig

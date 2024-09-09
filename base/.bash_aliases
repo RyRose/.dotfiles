@@ -6,7 +6,6 @@ if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
         cd "$HOME/.dotfiles" || exit
         git submodule init &>/dev/null
         git submodule update &>/dev/null
-        stow nvim
     )
 fi
 
@@ -46,3 +45,6 @@ alias ll='ls -la'
 alias ls='ls --color=auto'
 alias sl='ls'
 alias vim='nvim'
+
+# Source custom bash aliases.
+[[ -f ~/.config/.bash_aliases ]] && source ~/.config/.bash_aliases

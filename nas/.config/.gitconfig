@@ -1,0 +1,9 @@
+[user]
+    name = RyRose
+    email = RyRose@users.noreply.github.com
+
+[core]
+    pager = less
+
+[interactive]
+    diffFilter = less

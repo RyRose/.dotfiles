@@ -14,32 +14,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 " }}}
 
-" Plugins {{{
 call plug#begin('~/.vim/plugged')
-
-"https://github.com/google/vim-codefmt {{{
-
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'pedrohdz/vim-yaml-folds'
-
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  autocmd FileType vue AutoFormatBuffer prettier
-augroup END
-
-"}}}
-
+Plug 'tpope/vim-sleuth'
 call plug#end()
-"}}}
 
 "}}}
 
@@ -61,7 +38,6 @@ autocmd BufWritePre * %s/\s\+$//e
 set foldmethod=syntax
 set nofoldenable
 au BufRead .vimrc :setlocal foldmethod=marker
-au BufRead .vimrc :setlocal foldenable
 "}}}
 
 "Fix the staring inconsistency {{{
@@ -87,13 +63,6 @@ set hlsearch
 set incsearch
 "}}}
 
-" Next a few indentation options"{{{
-set softtabstop=2
-set tabstop=2
-set shiftwidth=2
-set expandtab
-"}}}
-
 " Viminfo Settings"{{{
 " I like a nice, large Vim info
 " '1000 save history for 1000 files
@@ -116,16 +85,6 @@ set sessionoptions+=resize
 
 " Some particulars about commands and Completion {{{
 set showcmd
-" }}}
-
-" Spell-check Markdown files and Git Commit Messages {{{
-autocmd FileType markdown setlocal spell
-autocmd FileType gitcommit setlocal spell
-" }}}
-
-" Enable dictionary auto-completion in Markdown files and Git Commit Messages {{{
-autocmd FileType markdown setlocal complete+=kspell
-autocmd FileType gitcommit setlocal complete+=kspell
 " }}}
 
 " https://vim.fandom.com/wiki/Highlight_unwanted_spaces {{{

@@ -2,11 +2,7 @@
 
 # Auto-install neovim dotfiles if not installed.
 if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
-    (
-        cd "$HOME/.dotfiles" || exit
-        git submodule init &>/dev/null
-        git submodule update &>/dev/null
-    )
+	git clone -q https://github.com/RyRose/kickstart.nvim ~/.config/nvim
 fi
 
 # Use less instead of more.

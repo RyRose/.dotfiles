@@ -1,19 +1,20 @@
 #!/usr/bin/env zsh
 
-# Source antigen.
-if [ -f ~/.config/antigen.zsh ]; then
-	source ~/.config/antigen.zsh
-	antigen use oh-my-zsh
-	antigen bundle zsh-users/zsh-autosuggestions
-	antigen bundle zsh-users/zsh-syntax-highlighting
-	antigen bundle zsh-users/zsh-completions
-	antigen bundle bazel
-	antigen bundle command-not-found
-	antigen apply
-fi
+# Download antigen if unavailable and source.
+[ ! -f ~/.config/antigen.zsh ] && curl -s -L git.io/antigen >~/.config/antigen.zsh
+source ~/.config/antigen.zsh
+antigen use oh-my-zsh
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle bazel
+antigen bundle command-not-found
+# antigen bundle nvm # nvm is slow, only enable if needed.
+antigen bundle sdk
+antigen apply
 
-# Source bash aliases.
-[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
+# Source bash aliases if exists.
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
 # Ignore history for commands doing file navigation in lieu of autocomplete.
 # Filesystem suggestions are more relevant.
@@ -41,11 +42,3 @@ command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
 command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion

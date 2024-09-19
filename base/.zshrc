@@ -9,8 +9,13 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 antigen bundle bazel
 antigen bundle command-not-found
-# antigen bundle nvm # nvm is slow, only enable if needed.
 antigen bundle sdk
+
+# nvm is slow, lazily load on first use.
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' lazy-cmd eslint prettier typescript nvim vim
+antigen bundle nvm
+
 antigen apply
 
 # Source bash aliases if exists.

@@ -1,6 +1,7 @@
 [sudo]
 disabled = false
 
+
 [aws]
 symbol = "  "
 
@@ -36,6 +37,10 @@ symbol = " "
 
 [fossil_branch]
 symbol = " "
+
+[gcloud]
+symbol = "  "
+disabled = true
 
 [git_branch]
 symbol = " "

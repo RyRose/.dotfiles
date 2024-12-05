@@ -33,8 +33,10 @@ antigen apply
 # Default to history then autocomplete if not in the history.
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Enable vi mode and accept suggestions with ctrl-y to match nvim.
+# Enable vi mode (again for some reason) and
+# accept suggestions with ctrl-y to match nvim.
 # Must be in this order to work properly.
+bindkey -v
 bindkey '^y' autosuggest-accept
 
 # zsh-history-substring-search configuration
@@ -59,3 +61,6 @@ command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
 command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
+
+# Initialize opam if available
+[ -f ~/.opam/opam-init/init.zsh ] && source ~/.opam/opam-init/init.zsh

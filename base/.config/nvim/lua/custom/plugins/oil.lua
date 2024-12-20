@@ -9,6 +9,10 @@ return {
         show_hidden = true,
       },
     },
+    keys = {
+      { '<leader>to', '<CMD>Oil<CR>', desc = 'Toggle [O]il', silent = true },
+      { '-', '<CMD>Oil<CR>', desc = 'Toggle [O]il', silent = true },
+    },
     dependencies = {
       { 'echasnovski/mini.icons', opts = {} },
     },

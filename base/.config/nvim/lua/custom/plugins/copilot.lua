@@ -1,6 +1,7 @@
 return {
   {
     'zbirenbaum/copilot.lua',
+    enabled = vim.g.enable_copilot,
     cmd = 'Copilot',
     event = 'InsertEnter',
     opts = {
@@ -12,11 +13,17 @@ return {
     },
   },
   {
+    'giuxtaposition/blink-cmp-copilot',
+    enabled = vim.g.enable_blink and vim.g.enable_copilot,
+  },
+  {
     'zbirenbaum/copilot-cmp',
+    enabled = not vim.g.enable_blink and vim.g.enable_copilot,
     opts = {},
   },
   {
     'CopilotC-Nvim/CopilotChat.nvim',
+    enabled = vim.g.enable_copilot,
     branch = 'canary',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim

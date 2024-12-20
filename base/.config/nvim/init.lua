@@ -10,6 +10,15 @@ vim.g.have_nerd_font = true
 -- Initialize mason_tools to append to across all plugins.
 vim.g.mason_tools = {}
 
+-- Enable copilot by default.
+vim.g.enable_copilot = true
+
+-- Enable blink instead of nvim-cmp.
+vim.g.enable_blink = false
+
+-- Arbitrary lua code to run before Lazy is loaded.
+pcall(require, 'custom.before')
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

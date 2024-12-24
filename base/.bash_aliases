@@ -44,3 +44,5 @@ alias vim='nvim'
 
 # Source custom bash aliases.
 [[ -f ~/.config/.bash_aliases ]] && source ~/.config/.bash_aliases
+
+alias python=python3

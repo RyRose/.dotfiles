@@ -91,23 +91,43 @@ config.keys = {
 	-- Resize panes with vim keybindings
 	{
 		key = "h",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Left", 5 }),
+		mods = "CTRL | LEADER",
+		-- action = act.AdjustPaneSize({ "Left", 5 }),
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			until_unknown = true,
+			one_shot = false,
+		}),
 	},
 	{
 		key = "j",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Down", 5 }),
+		mods = "CTRL | LEADER",
+		--  action = act.AdjustPaneSize({ "Down", 5 }),
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			until_unknown = true,
+			one_shot = false,
+		}),
 	},
 	{
 		key = "k",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Up", 5 }),
+		mods = "CTRL | LEADER",
+		--  action = act.AdjustPaneSize({ "Up", 5 }),
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			until_unknown = true,
+			one_shot = false,
+		}),
 	},
 	{
 		key = "l",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Right", 5 }),
+		mods = "CTRL | LEADER",
+		-- action = act.AdjustPaneSize({ "Right", 5 }),
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			until_unknown = true,
+			one_shot = false,
+		}),
 	},
 
 	-- Enable copy mode with tmux bindings.
@@ -127,11 +147,38 @@ for i = 1, 8 do
 	})
 end
 
+config.key_tables = {
+	-- Defines the keys that are active in our resize-pane mode.
+	-- Since we're likely to want to make multiple adjustments,
+	-- we made the activation one_shot=false. We therefore need
+	-- to define a key assignment for getting out of this mode.
+	-- 'resize_pane' here corresponds to the name="resize_pane" in
+	-- the key assignments above.
+	resize_pane = {
+		{ key = "h", mods = "CTRL", action = act.AdjustPaneSize({ "Left", 1 }) },
+
+		{ key = "l", mods = "CTRL", action = act.AdjustPaneSize({ "Right", 1 }) },
+
+		{ key = "k", mods = "CTRL", action = act.AdjustPaneSize({ "Up", 1 }) },
+
+		{ key = "j", mods = "CTRL", action = act.AdjustPaneSize({ "Down", 1 }) },
+
+		-- Cancel the mode by pressing escape
+		{ key = "Escape", action = "PopKeyTable" },
+	},
+}
+
 -- Use retro tab bar since it's more compact.
 config.use_fancy_tab_bar = false
 
 -- Disable + in tab bar since LEADER + c creates new tab.
 config.show_new_tab_button_in_tab_bar = false
+
+-- This causes `wezterm` to act as though it was started as
+-- `wezterm connect unix` by default, connecting to the unix
+-- domain on startup.
+-- If you prefer to connect manually, leave out this line.
+-- config.default_gui_startup_args = { "connect", "unix" }
 
 -- and finally, return the configuration to wezterm
 return config

@@ -24,7 +24,6 @@ return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     enabled = vim.g.enable_copilot,
-    branch = 'canary',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper

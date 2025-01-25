@@ -23,6 +23,7 @@ return {
         'isort',
         'markdownlint',
         'mdformat',
+        -- 'nixfmt', -- Installed natively.
         'prettier',
         'prettierd',
         'shellcheck',
@@ -77,8 +78,8 @@ return {
         markdown = { 'mdformat', 'markdownlint' },
         templ = { 'templ' },
         sql = { 'sqlfluff' },
-        -- sql = { 'sql-formatter' },
-        ['_'] = { 'trim_whitespace' },
+        nix = { 'nixfmt' },
+        ['*'] = { 'trim_whitespace' },
       },
     },
   },

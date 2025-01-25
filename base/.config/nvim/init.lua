@@ -58,7 +58,7 @@ require('lazy').setup({
     -- This must follow all plugins.
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     config = function()
-      tools = {}
+      local tools = {}
 
       for _, value in ipairs(vim.g.mason_tools) do
         if type(value) == 'table' and #value == 2 then

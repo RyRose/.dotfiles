@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Reboot to Firmware
+Comment=Reboots the system into Firmware
+Exec=systemctl reboot --boot-loader-entry=auto-reboot-to-firmware-setup
+Icon=system-restart
+Terminal=false
+Type=Application
+Categories=System;

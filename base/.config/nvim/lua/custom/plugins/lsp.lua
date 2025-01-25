@@ -234,15 +234,19 @@ return {
       --  You can press `g?` for help in this menu.
       require('mason').setup()
 
-      -- You can add other tools here that you want Mason to install
+      local mason_tools = {}
+
+      -- You can add other tools here tt you want Mason to install
       -- for you, so that they are available from within Neovim.
       for _, server in ipairs(vim.tbl_keys(servers or {})) do
-        if server == "lua_ls" then
-          table.insert(vim.g.mason_tools, {server, {"lua-lsp"}})
+        if server == 'lua_ls' then
+          table.insert(mason_tools, { server, { 'lua-lsp' } })
         else
-          table.insert(vim.g.mason_tools, server)
+          table.insert(mason_tools, server)
         end
       end
+
+      vim.g.mason_tools = vim.list_extend(vim.g.mason_tools, mason_tools)
 
       require('mason-lspconfig').setup {
         handlers = {

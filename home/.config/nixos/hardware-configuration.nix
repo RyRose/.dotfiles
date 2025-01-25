@@ -45,7 +45,7 @@
   };
 
   # Windows C partition
-  fileSystems."/mnt/c" = {
+  fileSystems."/mnt/win/c" = {
     fsType = "ntfs-3g";
     device = "/dev/nvme0n1p4";
   };

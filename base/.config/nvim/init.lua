@@ -60,8 +60,8 @@ require('lazy').setup({
     config = function()
       tools = {}
 
-      for _, tool in ipairs(vim.g.mason_tools) do
-        if type(value) == "table" and #value == 2 then
+      for _, value in ipairs(vim.g.mason_tools) do
+        if type(value) == 'table' and #value == 2 then
           found = false
           for _, alt in ipairs(value[2]) do
             if vim.fn.executable(alt) == 1 then
@@ -71,7 +71,7 @@ require('lazy').setup({
           if not found then
             table.insert(tools, value[1])
           end
-        elseif type(value) == "string" then
+        elseif type(value) == 'string' then
           if vim.fn.executable(value) ~= 1 then
             table.insert(tools, value)
           end
@@ -84,6 +84,11 @@ require('lazy').setup({
     end,
   },
 }, {
+  git = {
+    throttle = {
+      enabled = true,
+    },
+  },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

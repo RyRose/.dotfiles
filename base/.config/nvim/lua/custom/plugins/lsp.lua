@@ -199,6 +199,7 @@ return {
         tailwindcss = {},
         ansiblels = {},
         zls = {},
+        nil_ls = {},
         -- sqlls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -235,7 +236,13 @@ return {
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      vim.g.mason_tools = vim.list_extend(vim.g.mason_tools, vim.tbl_keys(servers or {}))
+      for _, server in ipairs(vim.tbl_keys(servers or {})) do
+        if server == "lua_ls" then
+          table.insert(vim.g.mason_tools, {server, {"lua-lsp"}})
+        else
+          table.insert(vim.g.mason_tools, server)
+        end
+      end
 
       require('mason-lspconfig').setup {
         handlers = {

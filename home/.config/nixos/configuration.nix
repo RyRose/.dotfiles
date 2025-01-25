@@ -8,12 +8,13 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ./firefox.nix
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -128,6 +129,19 @@
     unzip
     cargo
     rustc
+    ripgrep
+    fd
+    luarocks
+    wget
+    php
+    phpPackages.composer
+    julia
+    python3Packages.pip
+    tree-sitter
+    lynx
+    luajitPackages.tiktoken_core
+    stylua
+    luajitPackages.lua-lsp
   ];
 
   programs.neovim = {
@@ -214,7 +228,7 @@
         "nixos-config=${config.users.users.ryan.home}/.config/nixos/configuration.nix"
         "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
         "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

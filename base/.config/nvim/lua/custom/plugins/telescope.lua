@@ -70,7 +70,10 @@ return {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Search [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Search [F]iles' })
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files {
+          find_command={ 'rg', '--files', '--hidden', '-g', '!.git' }
+        } end, { desc = 'Search [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = 'Search [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Search current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search by [G]rep' })
@@ -103,7 +106,10 @@ return {
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+        builtin.find_files {
+          cwd = vim.fn.stdpath 'config',
+          find_command={ 'rg', '--files', '--hidden', '-g', '!.git' }
+        }
       end, { desc = 'Search [N]eovim files' })
       vim.keymap.set('n', '<leader>sN', function()
         builtin.live_grep { cwd = vim.fn.stdpath 'config' }

@@ -58,8 +58,28 @@ require('lazy').setup({
     -- This must follow all plugins.
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     config = function()
+      tools = {}
+
+      for _, tool in ipairs(vim.g.mason_tools) do
+        if type(value) == "table" and #value == 2 then
+          found = false
+          for _, alt in ipairs(value[2]) do
+            if vim.fn.executable(alt) == 1 then
+              found = true
+            end
+          end
+          if not found then
+            table.insert(tools, value[1])
+          end
+        elseif type(value) == "string" then
+          if vim.fn.executable(value) ~= 1 then
+            table.insert(tools, value)
+          end
+        end
+      end
+
       require('mason-tool-installer').setup {
-        ensure_installed = vim.g.mason_tools,
+        ensure_installed = tools,
       }
     end,
   },

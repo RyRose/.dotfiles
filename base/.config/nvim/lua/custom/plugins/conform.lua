@@ -18,7 +18,9 @@ return {
       -- for you, so that they are available from within Neovim.
       vim.g.mason_tools = vim.list_extend(vim.g.mason_tools, {
         'black',
+        'clang-format',
         'goimports',
+        'isort',
         'markdownlint',
         'mdformat',
         'prettier',

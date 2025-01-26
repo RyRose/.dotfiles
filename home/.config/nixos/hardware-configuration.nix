@@ -49,4 +49,9 @@
     fsType = "ntfs-3g";
     device = "/dev/nvme0n1p4";
   };
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8 * 1024; # 8GB
+  }];
 }

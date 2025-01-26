@@ -13,10 +13,12 @@ trap cleanup EXIT
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
+set -eux
+
 python3 \
     "$REPO_ROOT/utils/vendor/export-ble-infos.py" \
     --system "/mnt/win/c/Windows/System32/config/SYSTEM" \
-    --output "${TEMP_DIR}"
+    --output "${TEMP_DIR}" --verbose
 
 sudo python3 \
     "$REPO_ROOT/utils/bin/copy_bt.py" \

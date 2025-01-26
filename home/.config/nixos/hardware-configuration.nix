@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -7,7 +12,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable OpenGL
-  hardware.graphics = { enable = true; };
+  hardware.graphics = {
+    enable = true;
+  };
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -43,15 +50,4 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-
-  # Windows C partition
-  fileSystems."/mnt/win/c" = {
-    fsType = "ntfs-3g";
-    device = "/dev/nvme0n1p4";
-  };
-
-  swapDevices = [{
-    device = "/swapfile";
-    size = 8 * 1024; # 8GB
-  }];
 }

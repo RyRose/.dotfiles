@@ -132,6 +132,7 @@ in {
             lock-false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" =
             lock-false;
+          "browser.tabs.unloadOnLowMemory" = lock-true;
         };
       };
     };

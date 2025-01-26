@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -82,17 +87,20 @@
   users.users.ryan = {
     isNormalUser = true;
     description = "Ryan";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+    ];
     shell = pkgs.zsh;
-    packages = with pkgs;
-      [
-        #  thunderbird
-      ];
+    packages = with pkgs; [
+      #  thunderbird
+    ];
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "ryan";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "ryan";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -138,7 +146,7 @@
     luajitPackages.tiktoken_core
     stylua
     luajitPackages.lua-lsp
-    nixfmt
+    nixfmt-rfc-style
   ];
 
   programs.neovim = {
@@ -170,12 +178,9 @@
 
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall =
-      true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall =
-      true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall =
-      true; # Open ports in the firewall for Steam Local Network Game Transfers
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   nix.nixPath = [

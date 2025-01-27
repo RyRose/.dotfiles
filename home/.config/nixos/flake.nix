@@ -17,7 +17,7 @@
       };
     in
     {
-      nixosConfigurations.nixos = pkgs.lib.nixosSystem {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
           ./configuration.nix

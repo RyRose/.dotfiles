@@ -12,8 +12,8 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    /etc/nixos/hardware-configuration.nix
     ./hardware-configuration.nix
+    ./personal-hardware-configuration.nix
     ./firefox.nix
     ./dconf.nix
   ];

@@ -10,5 +10,4 @@ set -eux
 sudo nixos-rebuild switch \
     -I "nixos-config=${HOME}/.config/nixos/configuration.nix" \
     -I "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" \
-    -I "/nix/var/nix/profiles/per-user/root/channels" \
-    --flake "${HOME}/.dotfiles/home/.config/nixos"
+    -I "/nix/var/nix/profiles/per-user/root/channels"

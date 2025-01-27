@@ -2,5 +2,4 @@
 
 set -eux
 
-sudo nixos-rebuild switch \
-    --flake "${HOME}/.dotfiles/home/.config/nixos"
+sudo nixos-rebuild switch

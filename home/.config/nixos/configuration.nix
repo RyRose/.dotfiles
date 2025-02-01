@@ -91,6 +91,7 @@
       "networkmanager"
       "wheel"
       "audio"
+      "docker"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -147,6 +148,8 @@
     stylua
     luajitPackages.lua-lsp
     nixfmt-rfc-style
+    wl-clipboard
+    google-cloud-sdk-gce
   ];
 
   programs.neovim = {
@@ -183,11 +186,23 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
+  # Enable the Flakes feature and the accompanying new nix command-line tool
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   nix.nixPath = [
     "nixos-config=${config.users.users.ryan.home}/.config/nixos/configuration.nix"
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
+
+  # Enable docker.
+  virtualisation.docker.enable = true;
+
+  # Use local time for dual boot compatibility.
+  time.hardwareClockInLocalTime = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -83,6 +83,10 @@
             maximize = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
             unmaximize = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
           };
+
+          "org/gnome/desktop/interface" = {
+            clock-format = "12h";
+          };
         };
       }
     ];

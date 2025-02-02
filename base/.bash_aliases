@@ -46,3 +46,4 @@ alias vim='nvim'
 [[ -f ~/.config/.bash_aliases ]] && source ~/.config/.bash_aliases
 
 alias python=python3
+alias reload_nixos='sudo nixos-rebuild switch'

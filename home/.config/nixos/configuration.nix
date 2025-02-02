@@ -150,6 +150,7 @@
     nixfmt-rfc-style
     wl-clipboard
     google-cloud-sdk-gce
+    jq
   ];
 
   programs.neovim = {

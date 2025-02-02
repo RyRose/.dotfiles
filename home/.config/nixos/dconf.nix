@@ -86,6 +86,7 @@
 
           "org/gnome/desktop/interface" = {
             clock-format = "12h";
+            color-scheme = "prefer-dark";
           };
         };
       }

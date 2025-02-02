@@ -151,6 +151,9 @@
     wl-clipboard
     google-cloud-sdk-gce
     jq
+    usbutils
+    pciutils
+    sqlite
   ];
 
   programs.neovim = {
@@ -160,6 +163,7 @@
 
   programs.tmux.enable = true;
   programs.zsh.enable = true;
+  programs.command-not-found.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

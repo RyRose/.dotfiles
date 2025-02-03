@@ -203,8 +203,10 @@
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
 
-  # Enable docker.
+  # Enable docker. However, not on boot since this should only
+  # for development purposes.
   virtualisation.docker.enable = true;
+  virtualisation.docker.enableOnBoot = false;
 
   # Use local time for dual boot compatibility.
   time.hardwareClockInLocalTime = true;

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ ! -e ~/.config/nixos/configuration.nix ]; then
-    echo "~/.config/nixos/configuration.nix does not exist, stow $(home) to make available"
+    echo "~/.config/nixos/configuration.nix does not exist, stow home to make available"
     exit 1
 fi
 

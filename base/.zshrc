@@ -62,6 +62,43 @@ command -v starship &>/dev/null && eval "$(starship init zsh)"
 # Set up fzf key bindings and fuzzy completion
 command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
 
+function set_precmd_win_title() {
+	if [ -z "${TMUX}" ]; then
+		return
+	fi
+	# Cancel any pending delayed title update
+	if [[ -n "$title_delay_pid" ]]; then
+		kill "$title_delay_pid" 2>/dev/null
+		unset title_delay_pid
+	fi
+	local win_title="$(basename "$PWD")"
+	echo -ne "\033]2;${win_title}\007"
+}
+precmd_functions+=(set_precmd_win_title)
+
+function set_preexec_win_title() {
+	if [ -z "${TMUX}" ]; then
+		return
+	fi
+
+	local win_title
+    [[ "$1" =~ "^[[:space:]]*([^[:space:]]+)" ]] && win_title=$match[1]
+
+	# Kill any existing delayed title update
+	if [[ -n "$title_delay_pid" ]]; then
+		kill "$title_delay_pid" 2>/dev/null
+		unset title_delay_pid
+	fi
+	# Schedule new title update to occur after 1 second
+	(
+		sleep 1
+		echo -ne "\033]2;${win_title}\007"
+	) 2>/dev/null &!
+	title_delay_pid=$!
+	typeset -g title_delay_pid
+}
+preexec_functions+=(set_preexec_win_title)
+
 # Initialize opam if available
 [ -f ~/.opam/opam-init/init.zsh ] && source ~/.opam/opam-init/init.zsh
 

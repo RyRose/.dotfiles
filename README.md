@@ -44,7 +44,5 @@ git clone https://github.com/RyRose/.dotfiles.git ~/.dotfiles
 1. For write access to this repo, run `./utils/gen_github_key.sh` to update the
    git url to ssh and run `./utils/gen_github_key.sh` to generate an SSH key for
    github. Add this key here: <https://github.com/settings/keys>
-1. For bootstrapping nixos, run `./utils/preload_nixos.sh` to permanently update
-   to using `${HOME}/.config/nixos/configuration.nix` instead of
-   `/etc/nixos/configuration.nix`. This is available in the `home`
-   configuration. Future runs of `nixos-rebuild switch` will use this file.
+1. For bootstrapping nixos, run `reload_nixos` to use the environment-specific
+   script to reload nix at ~/.local/bin/reload_nixos.

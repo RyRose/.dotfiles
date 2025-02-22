@@ -22,6 +22,7 @@ export VISUAL=nvim
 export PATH="$PATH:$HOME/go/bin"
 
 # Custom binaries under home directory.
+# DEPRECATED: Use $HOME/.local/bin instead.
 export PATH="$PATH:$HOME/bin"
 
 # Install Ruby Gems to ~/gems
@@ -35,15 +36,16 @@ export PATH="$PATH:$HOME/anaconda3/bin"
 export CUDA_DIR="$HOME/anaconda3/nvvm"
 export XLA_FLAGS="--xla_gpu_cuda_data_dir=$CUDA_DIR"
 
+# Add .local binaries to PATH per XDG Base Directory Specification.
+export PATH="$PATH:$HOME/.local/bin"
+
 # Aliases.
 alias ..='cd ..'
 alias ll='ls -la'
 alias ls='ls --color=auto'
 alias sl='ls'
 alias vim='nvim'
+alias python=python3
 
 # Source custom bash aliases.
 [[ -f ~/.config/.bash_aliases ]] && source ~/.config/.bash_aliases
-
-alias python=python3
-alias reload_nixos='sudo nixos-rebuild switch'

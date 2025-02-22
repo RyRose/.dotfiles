@@ -33,14 +33,15 @@ Configuration for Synology NAS.
 
 ## bootstrap steps
 
-1. Clone the repository.
+1. Clone the repository. If using nix, run `nix-shell -p git` to grab Git.
 
 ```console
 git clone https://github.com/RyRose/.dotfiles.git ~/.dotfiles
 ```
 
 1. `stow` the base and either home/nas/some other configuration. For nixos, run
-   `nix-shell -p stow` to make `stow` available.
+   `nix develop` (alternatively `nix-shell`) to make `stow` available along with
+   any other dependencies.
 1. For write access to this repo, run `./utils/gen_github_key.sh` to update the
    git url to ssh and run `./utils/gen_github_key.sh` to generate an SSH key for
    github. Add this key here: <https://github.com/settings/keys>

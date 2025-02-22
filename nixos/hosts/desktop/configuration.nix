@@ -112,49 +112,28 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    ghostty
-    chntpw
-    bc
-    python3
-    gnomeExtensions.pop-shell
-    git
-    stow
-    starship
-    gnumake
-    gcc
-    jdk
-    delta
-    nodejs
-    go
-    unzip
-    cargo
-    rustc
-    ripgrep
-    fd
-    luarocks
-    wget
-    php
-    phpPackages.composer
-    julia
-    python3Packages.pip
-    tree-sitter
-    lynx
-    luajitPackages.tiktoken_core
-    stylua
-    luajitPackages.lua-lsp
-    nixfmt-rfc-style
-    wl-clipboard
-    google-cloud-sdk-gce
-    jq
-    usbutils
-    pciutils
-    sqlite
-  ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
+    # Desktop tools/enhancements/apps.
+    chntpw # Windows registry editor, for dual boot.
+    ghostty # Terminal.
+    gnomeExtensions.pop-shell # Window tiler for gnome.
+    wl-clipboard # Clipboard manager for Wayland.
+
+    # Useful CLI tools/utilities.
+    bc # Calculator.
+    delta # Git diff tool.
+    fd # Find tool.
+    git # Version control system.
+    google-cloud-sdk-gce # Google Cloud SDK for GCE.
+    jq # JSON processor.
+    pciutils # PCI utilities.
+    ripgrep # Search tool.
+    starship # Terminal prompt.
+    stow # Symlink manager for dotfiles.
+    unzip # Unzip files.
+    usbutils # USB utilities.
+    wget # Download tool.
+  ];
 
   programs.tmux.enable = true;
   programs.zsh.enable = true;

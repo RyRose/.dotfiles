@@ -114,7 +114,6 @@
   environment.systemPackages = with pkgs; [
 
     # Desktop tools/enhancements/apps.
-    chntpw # Windows registry editor, for dual boot.
     ghostty # Terminal.
     gnomeExtensions.pop-shell # Window tiler for gnome.
     wl-clipboard # Clipboard manager for Wayland.

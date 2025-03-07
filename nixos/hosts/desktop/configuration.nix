@@ -132,6 +132,9 @@
     unzip # Unzip files.
     usbutils # USB utilities.
     wget # Download tool.
+
+    libreoffice-qt # LibreOffice with Qt5 support.
+    hunspell # Spell checker.
   ];
 
   programs.tmux.enable = true;
@@ -163,6 +166,7 @@
   # Bootloader.
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable OpenGL

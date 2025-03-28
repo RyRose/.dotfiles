@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   programs.neovim.defaultEditor = true;
   programs.neovim.enable = true;
+  programs.neovim.package = pkgs-unstable.neovim-unwrapped;
   programs.neovim.extraPackages = with pkgs; [
     cargo # rust package manager
     fd # find tool

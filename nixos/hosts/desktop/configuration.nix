@@ -6,6 +6,7 @@
   config,
   pkgs,
   inputs,
+  pkgs-unstable,
   ...
 }:
 
@@ -92,7 +93,12 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    useGlobalPkgs = true; # Use the global package set.
+    useUserPackages = true; # Use the user package set.
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit pkgs-unstable;
+    };
     users.ryan = import ./home.nix;
   };
 

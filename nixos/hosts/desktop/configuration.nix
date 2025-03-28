@@ -6,7 +6,6 @@
   config,
   pkgs,
   inputs,
-  pkgs-unstable,
   ...
 }:
 
@@ -93,12 +92,9 @@
   };
 
   home-manager = {
-    useGlobalPkgs = true; # Use the global package set.
-    useUserPackages = true; # Use the user package set.
-    extraSpecialArgs = {
-      inherit inputs;
-      inherit pkgs-unstable;
-    };
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
     users.ryan = import ./home.nix;
   };
 
@@ -112,6 +108,10 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Build packages with ROCm support by default.
+  # Needed for btop.
+  nixpkgs.config.rocmSupport = true;
 
   environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
 
@@ -141,7 +141,18 @@
 
     libreoffice-qt # LibreOffice with Qt5 support.
     hunspell # Spell checker.
+
+    btop # Resource monitor (alternative to htop).
   ];
+
+  # List all packages at /etc/current-system-packages.
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
 
   programs.tmux.enable = true;
   programs.zsh.enable = true;

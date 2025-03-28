@@ -1,8 +1,9 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   programs.neovim.defaultEditor = true;
   programs.neovim.enable = true;
-  programs.neovim.package = pkgs-unstable.neovim-unwrapped;
+  # nvim 0.11 is only in master.
+  programs.neovim.package = pkgs.master.neovim-unwrapped;
   programs.neovim.extraPackages = with pkgs; [
     cargo # rust package manager
     fd # find tool
@@ -11,8 +12,8 @@
     go # Go programming language
     jdk # Java Development Kit
     julia # Julia programming language
+    lua # Lua programming language
     luajitPackages.lua-lsp # Lua language server
-    luajitPackages.tiktoken_core # Lua tokenizer
     luarocks # Lua package manager
     lynx # Text-based web browser
     nixfmt-rfc-style # Nix formatter
@@ -20,9 +21,11 @@
     php # PHP programming language
     phpPackages.composer # PHP package manager
     python3 # Python 3 programming language
+    python312Packages.tiktoken # OpenAI tokenizer library
     python3Packages.pip # Python package manager
     ripgrep # Search tool
     rustc # Rust compiler
+    sqlfluff # SQL linter and formatter
     stylua # Lua formatter
     tree-sitter # Parser generator tool
     wget # Download tool

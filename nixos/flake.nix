@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -18,11 +22,11 @@
       home-manager,
       nixpkgs-unstable,
       nixpkgs-master,
+      nix-darwin,
       ...
     }@inputs:
     let
-      system = "x86_64-linux"; # Change this to your system architecture.
-      overlay-nixpkgs = final: prev: {
+      overlay-nixpkgs = system: final: prev: {
         unstable = import nixpkgs-unstable {
           inherit system;
           config.allowUnfree = true;
@@ -32,6 +36,8 @@
           config.allowUnfree = true;
         };
       };
+      overlay-nixpkgs-darwin = overlay-nixpkgs "x86_64-darwin";
+      overlay-nixpkgs-linux = overlay-nixpkgs "x86_64-linux";
     in
     {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
@@ -40,11 +46,28 @@
           (
             { ... }:
             {
-              nixpkgs.overlays = [ overlay-nixpkgs ];
+              nixpkgs.overlays = [ overlay-nixpkgs-linux ];
             }
           )
           ./hosts/desktop/configuration.nix
           home-manager.nixosModules.default
+        ];
+      };
+
+      darwinConfigurations.laptop = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs;
+          inherit self;
+        };
+        modules = [
+          (
+            { ... }:
+            {
+              nixpkgs.overlays = [ overlay-nixpkgs-darwin ];
+            }
+          )
+          ./hosts/laptop/configuration.nix
+          home-manager.darwinModules.default
         ];
       };
     };

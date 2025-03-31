@@ -11,7 +11,6 @@
     gnumake # GNU make
     go # Go programming language
     jdk # Java Development Kit
-    julia # Julia programming language
     lua # Lua programming language
     luajitPackages.lua-lsp # Lua language server
     luarocks # Lua package manager

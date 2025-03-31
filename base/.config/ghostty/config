@@ -2,5 +2,4 @@ window-decoration = false
 font-size = 18
 
 keybind = ctrl+space>shift+o=reload_config
-command = tmux new -A -s main
 background-opacity = 0.9

@@ -13,6 +13,7 @@
     jdk # Java Development Kit
     lua # Lua programming language
     luajitPackages.lua-lsp # Lua language server
+    luajitPackages.tiktoken_core # https://github.com/CopilotC-Nvim/CopilotChat.nvim?tab=readme-ov-file#optional-dependencies
     luarocks # Lua package manager
     lynx # Text-based web browser
     nixfmt-rfc-style # Nix formatter
@@ -20,7 +21,6 @@
     php # PHP programming language
     phpPackages.composer # PHP package manager
     python3 # Python 3 programming language
-    python312Packages.tiktoken # OpenAI tokenizer library
     python3Packages.pip # Python package manager
     ripgrep # Search tool
     rustc # Rust compiler

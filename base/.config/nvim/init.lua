@@ -86,7 +86,8 @@ require('lazy').setup({
 }, {
   git = {
     throttle = {
-      enabled = true,
+      -- Enable throttling if errors are encountered.
+      -- enabled = true,
     },
   },
   ui = {

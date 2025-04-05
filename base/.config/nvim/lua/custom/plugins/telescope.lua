@@ -49,12 +49,19 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+        },
+        pickers = {
+          live_grep = {
+            additional_args = function(_)
+              return { '--hidden' }
+            end,
+          },
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -70,10 +77,7 @@ return {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Search [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', function()
-        builtin.find_files {
-          find_command={ 'rg', '--files', '--hidden', '-g', '!.git' }
-        } end, { desc = 'Search [F]iles' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Search [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = 'Search [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Search current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search by [G]rep' })
@@ -108,7 +112,7 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files {
           cwd = vim.fn.stdpath 'config',
-          find_command={ 'rg', '--files', '--hidden', '-g', '!.git' }
+          find_command = { 'rg', '--files' },
         }
       end, { desc = 'Search [N]eovim files' })
       vim.keymap.set('n', '<leader>sN', function()
@@ -117,15 +121,10 @@ return {
 
       -- Shortcut for searching your dot files
       vim.keymap.set('n', '<leader>s.', function()
-        builtin.find_files {
-          cwd = vim.fn.expand '~/.dotfiles',
-          hidden = true,
-        }
+        builtin.find_files { cwd = vim.fn.expand '~/.dotfiles' }
       end, { desc = "Search [.] files' text" })
       vim.keymap.set('n', '<leader>s>', function()
-        builtin.live_grep {
-          cwd = vim.fn.expand '~/.dotfiles',
-        }
+        builtin.live_grep { cwd = vim.fn.expand '~/.dotfiles' }
       end, { desc = 'Search [.] files' })
     end,
   },

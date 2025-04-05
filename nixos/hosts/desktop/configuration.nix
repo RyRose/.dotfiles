@@ -120,17 +120,21 @@
   environment.systemPackages = with pkgs; [
 
     # Desktop tools/enhancements/apps.
+    chatterino2 # Twitch chat client.
     ghostty # Terminal.
     gnomeExtensions.pop-shell # Window tiler for gnome.
     wl-clipboard # Clipboard manager for Wayland.
 
     # Useful CLI tools/utilities.
     bc # Calculator.
+    btop # Resource monitor (alternative to htop).
     delta # Git diff tool.
     fd # Find tool.
     git # Version control system.
     google-cloud-sdk-gce # Google Cloud SDK for GCE.
+    hunspell # Spell checker.
     jq # JSON processor.
+    libreoffice-qt # LibreOffice with Qt5 support.
     pciutils # PCI utilities.
     ripgrep # Search tool.
     starship # Terminal prompt.
@@ -138,11 +142,6 @@
     unzip # Unzip files.
     usbutils # USB utilities.
     wget # Download tool.
-
-    libreoffice-qt # LibreOffice with Qt5 support.
-    hunspell # Spell checker.
-
-    btop # Resource monitor (alternative to htop).
   ];
 
   # List all packages at /etc/current-system-packages.

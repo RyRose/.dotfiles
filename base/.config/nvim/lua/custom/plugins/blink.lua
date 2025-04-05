@@ -21,10 +21,34 @@ return {
     -- optional: provides snippets for the snippet source
     'rafamadriz/friendly-snippets',
     { 'giuxtaposition/blink-cmp-copilot', enabled = vim.g.enable_copilot },
+    {
+      'L3MON4D3/LuaSnip',
+      version = '2.*',
+      build = (function()
+        -- Build Step is needed for regex support in snippets.
+        -- This step is not supported in many windows environments.
+        -- Remove the below condition to re-enable on windows.
+        if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+          return
+        end
+        return 'make install_jsregexp'
+      end)(),
+      dependencies = {
+        -- `friendly-snippets` contains a variety of premade snippets.
+        --    See the README about individual language/framework/plugin snippets:
+        --    https://github.com/rafamadriz/friendly-snippets
+        -- {
+        --   'rafamadriz/friendly-snippets',
+        --   config = function()
+        --     require('luasnip.loaders.from_vscode').lazy_load()
+        --   end,
+        -- },
+      },
+    },
   },
 
   -- use a release tag to download pre-built binaries
-  version = 'v0.*',
+  version = 'v1.*',
   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
   -- build = 'cargo build --release',
   -- If you use nix, you can build from source using latest nightly rust with:
@@ -54,10 +78,12 @@ return {
     -- elsewhere in your config, without redefining it, via `opts_extend`
     sources = {
       -- TODO: Switch to this mechanism if on nightly.
-      -- default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+      default = insertIf(vim.g.enable_copilot, { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }, 'copilot'),
 
       -- Copilot support.
-      providers = extendIf(vim.g.enable_copilot, {}, {
+      providers = extendIf(vim.g.enable_copilot, {
+        lazydev = { name = 'lazydev', module = 'lazydev.integrations.blink', score_offset = 100 },
+      }, {
         copilot = {
           name = 'copilot',
           module = 'blink-cmp-copilot',
@@ -66,15 +92,18 @@ return {
           async = true,
         },
       }),
-      completion = {
-        enabled_providers = insertIf(vim.g.enable_copilot, {
-          'lsp',
-          'path',
-          'snippets',
-          'buffer',
-        }, 'copilot'),
-      },
+      -- completion = {
+      --   enabled_providers = insertIf(vim.g.enable_copilot, {
+      --     'lsp',
+      --     'path',
+      --     'snippets',
+      --     'buffer',
+      --     'lazydev',
+      --   }, 'copilot'),
+      -- },
     },
+
+    snippets = { preset = 'luasnip' },
 
     completion = {
       ghost_text = {

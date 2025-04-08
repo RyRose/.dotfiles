@@ -150,6 +150,7 @@
     unzip # Unzip files.
     usbutils # USB utilities.
     wget # Download tool.
+    python3 # Python 3 interpreter.
   ];
 
   # List all packages at /etc/current-system-packages.

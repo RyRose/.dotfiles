@@ -3,3 +3,4 @@ font-size = 18
 
 keybind = ctrl+space>shift+o=reload_config
 background-opacity = 0.9
+command = ~/.config/ghostty/command.sh

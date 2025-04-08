@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# tmux list-clients -t main 2>/dev/null | grep -q "main"
-# exit $?
-
 if command -v tmux &>/dev/null; then
 	if tmux list-clients -t main 2>/dev/null | grep -q "main"; then
 		tmux new-session

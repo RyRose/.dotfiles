@@ -2,6 +2,7 @@
   self,
   pkgs,
   inputs,
+  config,
   ...
 }:
 {
@@ -18,7 +19,11 @@
 
   nix.gc = {
     automatic = true;
-    dates = "weekly";
+    interval = {
+      Weekday = 0;
+      Hour = 0;
+      Minute = 0;
+    };
     options = "--delete-older-than 30d";
   };
 
@@ -41,18 +46,20 @@
     # gnomeExtensions.pop-shell # Window tiler for gnome.
     # wl-clipboard # Clipboard manager for Wayland.
 
+    tmux
+
     # Useful CLI tools/utilities.
     # bc # Calculator.
-    # delta # Git diff tool.
-    # fd # Find tool.
-    # git # Version control system.
+    delta # Git diff tool.
+    fd # Find tool.
+    git # Version control system.
     # google-cloud-sdk-gce # Google Cloud SDK for GCE.
     jq # JSON processor.
     # pciutils # PCI utilities.
     # ripgrep # Search tool.
-    # starship # Terminal prompt.
-    # stow # Symlink manager for dotfiles.
-    # unzip # Unzip files.
+    starship # Terminal prompt.
+    stow # Symlink manager for dotfiles.
+    unzip # Unzip files.
     # usbutils # USB utilities.
     # wget # Download tool.
     # libreoffice-qt # LibreOffice with Qt5 support.
@@ -60,6 +67,16 @@
 
     btop # Resource monitor (alternative to htop).
   ];
+
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
+
+  # programs.tmux.enable = true;
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";

@@ -183,12 +183,7 @@ return {
         clangd = {},
         bzl = {},
         yamlls = {},
-        -- https://www.reddit.com/r/neovim/comments/1fkprp5/how_to_properly_setup_lspconfig_for_toml_files
-        taplo = {
-          filetypes = { 'toml' },
-          -- IMPORTANT: this is required for taplo LSP to work in non-git repositories
-          root_dir = require('lspconfig.util').root_pattern('*.toml', '.git'),
-        },
+        taplo = {},
         rust_analyzer = {},
         gopls = {},
         pyright = {},
@@ -236,7 +231,7 @@ return {
 
       local mason_tools = {}
 
-      -- You can add other tools here tt you want Mason to install
+      -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       for _, server in ipairs(vim.tbl_keys(servers or {})) do
         if server == 'lua_ls' then
@@ -256,7 +251,8 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.enable(server_name)
+            vim.lsp.config(server_name, server)
           end,
         },
       }

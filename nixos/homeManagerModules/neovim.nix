@@ -2,8 +2,8 @@
 {
   programs.neovim.defaultEditor = true;
   programs.neovim.enable = true;
-  # nvim 0.11 is only in master.
-  programs.neovim.package = pkgs.master.neovim-unwrapped;
+  # nvim 0.11 is not yet in stable.
+  programs.neovim.package = pkgs.unstable.neovim-unwrapped;
   programs.neovim.extraPackages = with pkgs; [
     cargo # rust package manager
     fd # find tool

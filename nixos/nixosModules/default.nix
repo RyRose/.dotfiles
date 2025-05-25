@@ -3,6 +3,6 @@
 {
   imports = [
     ./firefox.nix
-    ./dconf.nix
+    ./gnome.nix
   ];
 }

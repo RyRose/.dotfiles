@@ -21,10 +21,8 @@
   my.nvidia.enable = true;
   my.printing.enable = true;
 
-  # Enable the Cosmic desktop environment once issue addressed:
-  # https://github.com/pop-os/cosmic-settings/issues/1154
-  my.gnome.enable = true;
-  # my.cosmic.enable = true;
+  my.cosmic.enable = true;
+  # my.gnome.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
 

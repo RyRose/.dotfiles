@@ -18,7 +18,8 @@
 
   # Personal modules
   my.firefox.enable = true;
-  my.gnome.enable = true;
+  my.gnome.enable = false;
+  my.cosmic.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
 

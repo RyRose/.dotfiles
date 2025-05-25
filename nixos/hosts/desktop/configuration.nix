@@ -18,19 +18,18 @@
 
   # Personal modules
   my.firefox.enable = true;
-  # my.gnome.enable = true;
-  my.cosmic.enable = true;
   my.nvidia.enable = true;
   my.printing.enable = true;
+
+  # Enable the Cosmic desktop environment once issue addressed:
+  # https://github.com/pop-os/cosmic-settings/issues/1154
+  my.gnome.enable = true;
+  # my.cosmic.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;

@@ -8,7 +8,7 @@
 {
 
   imports = [
-    # ../../nixosModules/firefox.nix
+    ../../nixosModules/default.nix
     inputs.home-manager.darwinModules.default
   ];
 

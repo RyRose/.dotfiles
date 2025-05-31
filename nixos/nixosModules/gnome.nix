@@ -28,6 +28,13 @@
       gnomeExtensions.pop-shell # Window tiler for gnome.
     ];
 
+    # Enable KDE Connect
+    # https://wiki.nixos.org/wiki/KDE_Connect
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.gnomeExtensions.gsconnect;
+    };
+
     programs.dconf = {
       enable = true;
       profiles.user.databases = [
@@ -109,6 +116,15 @@
             "org/gnome/desktop/interface" = {
               clock-format = "12h";
               color-scheme = "prefer-dark";
+            };
+
+            "org/gnome/shell" = {
+              enabled-extensions = [
+                # Pop Shell
+                "pop-shell@system76.com"
+                # GSConnect
+                "gsconnect@andyholmes.github.io"
+              ];
             };
           };
         }

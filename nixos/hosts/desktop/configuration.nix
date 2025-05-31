@@ -21,8 +21,10 @@
   my.nvidia.enable = true;
   my.printing.enable = true;
 
-  my.cosmic.enable = true;
-  # my.gnome.enable = true;
+  # Re-enable once/if cosmic connect is available.
+  # https://github.com/pop-os/cosmic-applets/issues/459
+  # my.cosmic.enable = true;
+  my.gnome.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
 

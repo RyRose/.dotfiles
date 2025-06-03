@@ -80,9 +80,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "ryan";
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Build packages with ROCm support by default.
   # Needed for btop.
   nixpkgs.config.rocmSupport = true;
@@ -142,11 +139,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-  };
 
   # Enable steam hardware.
   hardware.steam-hardware.enable = true;

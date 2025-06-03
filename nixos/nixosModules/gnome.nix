@@ -26,6 +26,7 @@
 
     environment.systemPackages = with pkgs; [
       gnomeExtensions.pop-shell # Window tiler for gnome.
+      wl-clipboard # Clipboard manager for Wayland.
     ];
 
     # Enable KDE Connect

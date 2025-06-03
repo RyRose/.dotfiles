@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 
@@ -14,6 +15,10 @@
   };
 
   config = lib.mkIf config.my.cosmic.enable {
+
+    environment.systemPackages = with pkgs; [
+      wl-clipboard # Clipboard manager for Wayland.
+    ];
 
     # https://nixos.org/manual/nixos/stable/release-notes#sec-release-25.05-highlights
     services.desktopManager.cosmic.enable = true;

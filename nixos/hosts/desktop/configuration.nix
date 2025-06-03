@@ -37,29 +37,8 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -115,38 +94,28 @@
   environment.systemPackages = with pkgs; [
 
     # Desktop tools/enhancements/apps.
-    chatterino2 # Twitch chat client.
     ghostty # Terminal.
-    wl-clipboard # Clipboard manager for Wayland.
+    youtube-music # YouTube Music client.
 
     # Useful CLI tools/utilities.
     bc # Calculator.
     btop # Resource monitor (alternative to htop).
     delta # Git diff tool.
+    fastfetch # Fast system information tool.
     fd # Find tool.
     git # Version control system.
     google-cloud-sdk-gce # Google Cloud SDK for GCE.
     hunspell # Spell checker.
     jq # JSON processor.
-    libreoffice-qt # LibreOffice with Qt5 support.
     pciutils # PCI utilities.
+    python3 # Python 3 interpreter.
     ripgrep # Search tool.
     starship # Terminal prompt.
     stow # Symlink manager for dotfiles.
     unzip # Unzip files.
     usbutils # USB utilities.
     wget # Download tool.
-    python3 # Python 3 interpreter.
   ];
-
-  # List all packages at /etc/current-system-packages.
-  environment.etc."current-system-packages".text =
-    let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in
-    formatted;
 
   programs.tmux.enable = true;
   programs.zsh.enable = true;
@@ -159,12 +128,6 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
-
-  # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   # Enable docker. However, not on boot since this should only
   # be for development purposes.
@@ -179,12 +142,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
 
   # Enable OpenGL
   hardware.graphics = {

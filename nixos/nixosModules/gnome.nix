@@ -17,17 +17,33 @@
   config = lib.mkIf config.my.gnome.enable {
 
     # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    # https://wiki.nixos.org/wiki/GNOME
+    services.xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
 
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
 
-    environment.systemPackages = with pkgs; [
-      gnomeExtensions.pop-shell # Window tiler for gnome.
-      wl-clipboard # Clipboard manager for Wayland.
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        adwaita-icon-theme # Adwaita icon theme.
+        gnome-themes-extra # Extra GNOME themes.
+        gnome-tweaks # GNOME Tweaks tool.
+        wl-clipboard # Clipboard manager for Wayland.
+      ]
+      ++ (with pkgs.gnomeExtensions; [
+        appindicator # AppIndicator support for GNOME.
+        blur-my-shell # Blur the background of the GNOME Shell.
+        pop-shell # Window tiler for gnome.
+      ]);
+
+    # Enable GNOME Settings Daemon.
+    services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
     # Enable KDE Connect
     # https://wiki.nixos.org/wiki/KDE_Connect
@@ -120,11 +136,12 @@
             };
 
             "org/gnome/shell" = {
-              enabled-extensions = [
-                # Pop Shell
-                "pop-shell@system76.com"
-                # GSConnect
-                "gsconnect@andyholmes.github.io"
+              disable-user-extensions = false; # enables user extensions
+              enabled-extensions = with pkgs.gnomeExtensions; [
+                appindicator.extensionUuid
+                blur-my-shell.extensionUuid
+                gsconnect.extensionUuid
+                pop-shell.extensionUuid
               ];
             };
           };

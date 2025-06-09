@@ -7,6 +7,7 @@
     ./firefox.nix
     ./flakes.nix
     ./gnome.nix
+    ./hyprland.nix
     ./i18n.nix
     ./nixgc.nix
     ./nvidia.nix

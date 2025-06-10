@@ -22,15 +22,13 @@
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     environment.systemPackages = with pkgs; [
-      kitty
-      # required for the default Hyprland config
-      waybar # status bar
-      swww # wallpaper manager
-      dunst
-      wl-clipboard # clipboard manager
-      rofi-wayland # application launcher
-      networkmanagerapplet # network manager applet
       dunst # notification daemon
+      kitty # required for the default Hyprland config
+      networkmanagerapplet # network manager applet
+      rofi-wayland # application launcher
+      swww # wallpaper manager
+      waybar # status bar
+      wl-clipboard # clipboard manager
     ];
 
     # Optional, hint Electron apps to use Wayland:

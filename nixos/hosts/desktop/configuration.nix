@@ -23,7 +23,8 @@
   # Re-enable once/if cosmic connect is available.
   # https://github.com/pop-os/cosmic-applets/issues/459
   # my.cosmic.enable = true;
-  my.gnome.enable = true;
+  # my.gnome.enable = true;
+  my.hyprland.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
 

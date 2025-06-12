@@ -58,6 +58,10 @@
       };
     };
 
+    stylix.cursor.package = pkgs.bibata-cursors;
+    stylix.cursor.name = "Bibata-Modern-Ice";
+    stylix.cursor.size = 24;
+
     environment.systemPackages = with pkgs; [
       dunst # notification daemon
       hyprpolkitagent # polkit agent for Hyprland
@@ -74,6 +78,10 @@
       jetbrains-mono
       noto-fonts-emoji
       nerd-fonts.jetbrains-mono
+      bibata-cursors
+      wlogout
+      hyprlock # screen locker for Hyprland
+      hypridle # idle detection for Hyprland
     ];
 
     # Optional, hint Electron apps to use Wayland:

@@ -51,9 +51,10 @@
       # See https://wiki.hyprland.org/Configuring/Keywords/
 
       # Set programs that you use
-      "$terminal" = "${pkgs.ghostty}/bin/ghostty";
+      "$terminal" = "${lib.getExe pkgs.ghostty}";
       "$fileManager" = "thunar";
-      "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons";
+      "$menu" =
+        "${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
 
       #################
       ### AUTOSTART ###
@@ -66,22 +67,17 @@
       # exec-once = nm-applet &
       # exec-once = waybar & hyprpaper & firefox
 
-      # (
-      #   while ${pkgs.inotify-tools}/bin/inotifywait -r -e create,modify ~/.config/waybar/*; do
-      #     pkill -SIGUSR2 waybar
-      #   done
-      # ) &
-
       exec-once =
         let
           startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
             systemctl --user start hyprpolkitagent &
-            ${pkgs.waybar}/bin/waybar &
-            ${pkgs.swww}/bin/swww init &
-            ${pkgs.swww}/bin/swww img ${./wallpaper.png} &
-            ${pkgs.networkmanagerapplet}/bin/nm-applet &
-            ${pkgs.dunst}/bin/dunst &
-            ${pkgs.blueman}/bin/blueman-applet &
+            ${lib.getExe pkgs.waybar} &
+            ${lib.getExe pkgs.swww} init &
+            ${lib.getExe pkgs.swww} img ${../assets/wallpapers/wallpaper.png} &
+            ${lib.getExe pkgs.networkmanagerapplet} &
+            ${lib.getExe pkgs.dunst} &
+            ${lib.getExe' pkgs.blueman "blueman-applet"} &
+            ${lib.getExe pkgs.hypridle} &
           '';
         in
         ''${startupScript}/bin/start'';
@@ -254,6 +250,7 @@
       bind = [
         "$mod, T, exec, $terminal" # Pop OS hotkey
         "$mod, Q, killactive," # Pop OS hotkey
+        "$mod CTRL, Q, exec, wlogout" # Mac hotkey
         "$mod, `, exit,"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, G, togglefloating," # Pop OS hotkey
@@ -374,9 +371,8 @@
           "cpu"
           "memory"
           "temperature"
-          "keyboard-state"
           "clock"
-          "custom/power"
+          "custom/wlogout"
         ];
 
         tray = {
@@ -396,6 +392,13 @@
           separate-outputs = true;
         };
 
+        "custom/wlogout" = {
+          format = "⏻  "; # Add padding to right-hand side.
+          tooltip = "Logout";
+          on-click = "wlogout";
+          interval = 0;
+        };
+
         clock = {
           format = "{:%I:%M %p}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
@@ -403,7 +406,6 @@
         };
 
         cpu = {
-          # format = "{usage}% ";
           interval = 5;
           format = "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}";
           format-icons = [
@@ -450,7 +452,7 @@
           format-source-muted = "";
           format-icons = {
             headphone = "";
-            headset = "";
+            headset = "";
             default = [
               ""
               ""
@@ -460,6 +462,35 @@
           on-click = "pavucontrol";
         };
       };
+    };
+
+    programs.hyprlock.enable = true;
+    programs.wlogout.enable = true;
+
+    services.hypridle.enable = true;
+    services.hypridle.settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+        lock_cmd = "hyprlock";
+      };
+
+      listener = [
+        {
+          timeout = 300;
+          on-timeout = "hyprlock";
+        }
+        {
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+      ];
+    };
+
+    programs.rofi = {
+      enable = true;
+      terminal = lib.getExe pkgs.ghostty;
     };
   };
 }

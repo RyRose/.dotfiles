@@ -13,6 +13,12 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -23,6 +29,7 @@
       nixpkgs-unstable,
       nixpkgs-master,
       nix-darwin,
+      stylix,
       ...
     }@inputs:
     let
@@ -49,8 +56,9 @@
               nixpkgs.overlays = [ overlay-nixpkgs-linux ];
             }
           )
-          ./hosts/desktop/configuration.nix
+          stylix.nixosModules.stylix
           home-manager.nixosModules.default
+          ./hosts/desktop/configuration.nix
         ];
       };
 

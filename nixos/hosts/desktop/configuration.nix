@@ -12,7 +12,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../nixosModules/default.nix
-    inputs.home-manager.nixosModules.default
   ];
 
   # Personal modules

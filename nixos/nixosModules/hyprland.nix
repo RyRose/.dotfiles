@@ -88,6 +88,13 @@
       libreoffice # office suite
     ];
 
+    # Enable KDE Connect
+    # https://wiki.nixos.org/wiki/KDE_Connect
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
+    };
+
     # Optional, hint Electron apps to use Wayland:
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
   };

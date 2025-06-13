@@ -61,6 +61,10 @@
     stylix.targets.neovide.enable = false;
     stylix.targets.nvf.enable = false;
 
+    services.kdeconnect.enable = true;
+    services.kdeconnect.indicator = true;
+    services.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
+
     wayland.windowManager.hyprland = {
       enable = true; # enable Hyprland
 
@@ -93,7 +97,8 @@
         "${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
       "$hyprshot" = "${lib.getExe pkgs.hyprshot}";
       "$webBrowser" = "${lib.getExe pkgs.firefox}";
-      "$youtubeMusic" = "${lib.getExe pkgs.youtube-music}";
+      "$musicPlayer" = "${lib.getExe pkgs.youtube-music}";
+      "$passwordManager" = "${lib.getExe pkgs.bitwarden-desktop}";
 
       #################
       ### AUTOSTART ###
@@ -114,6 +119,8 @@
             ${lib.getExe' pkgs.blueman "blueman-applet"} &
             ${lib.getExe pkgs.hypridle} &
             ${lib.getExe pkgs.firefox} &
+            ${lib.getExe' pkgs.kdePackages.kdeconnect-kde "kdeconnect-indicator"} &
+            ${lib.getExe pkgs.bitwarden-desktop} &
           '';
         in
         ''${startupScript}/bin/start'';
@@ -204,13 +211,14 @@
         "$mod CTRL, Q, exec, wlogout" # Mac hotkey
         "$mod SHIFT, Q, exec, wlogout" # Mac hotkey
         "$mod, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
-        "$mod, M, exec, $youtubeMusic"
+        "$mod, M, exec, $musicPlayer"
         "$mod, W, exec, $webBrowser"
+        "$mod, P, exec, $passwordManager"
         "$mod, `, exit,"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, G, togglefloating," # Pop OS hotkey
         "$mod, Space, exec, $menu"
-        "$mod, P, pseudo," # dwindle
+        "$mod, I, pseudo," # dwindle
         "$mod, O, togglesplit, " # dwindle, Pop OS hotkey
 
         # Move focus with mod + arrow keys

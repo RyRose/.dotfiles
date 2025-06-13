@@ -83,6 +83,7 @@
     # Desktop tools/enhancements/apps.
     ghostty # Terminal.
     youtube-music # YouTube Music client.
+    bitwarden-desktop # Password manager.
 
     # Useful CLI tools/utilities.
     bc # Calculator.

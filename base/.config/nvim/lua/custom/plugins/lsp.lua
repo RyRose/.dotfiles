@@ -23,7 +23,17 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          -- https://github.com/catppuccin/nvim/tree/main
+          notification = {
+            window = {
+              winblend = 0,
+            },
+          },
+        },
+      },
 
       -- Allows extra capabilities provided by blink/cmp
       { 'hrsh7th/cmp-nvim-lsp', enabled = not vim.g.enable_blink },

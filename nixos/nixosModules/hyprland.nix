@@ -82,6 +82,7 @@
       wlogout
       hyprlock # screen locker for Hyprland
       hypridle # idle detection for Hyprland
+      hyprshot # screenshot tool for Hyprland
     ];
 
     # Optional, hint Electron apps to use Wayland:

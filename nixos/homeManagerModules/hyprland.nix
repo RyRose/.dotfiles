@@ -88,9 +88,10 @@
 
       # Set programs that you use
       "$terminal" = "${lib.getExe pkgs.ghostty}";
-      "$fileManager" = "thunar";
+      "$fileManager" = "${lib.getExe pkgs.xfce.thunar}";
       "$menu" =
         "${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
+      "$hyprshot" = "${lib.getExe pkgs.hyprshot}";
 
       #################
       ### AUTOSTART ###
@@ -198,6 +199,7 @@
         "$mod, T, exec, $terminal" # Pop OS hotkey
         "$mod, Q, killactive," # Pop OS hotkey
         "$mod CTRL, Q, exec, wlogout" # Mac hotkey
+        "$mod SHIFT, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
         "$mod, `, exit,"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, G, togglefloating," # Pop OS hotkey

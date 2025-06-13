@@ -5,6 +5,7 @@
     ../../homeManagerModules/default.nix
   ];
 
+  my.xdg.enable = true;
   my.neovim.enable = true;
   my.hyprland.enable = true;
   my.hyprland.monitors = [

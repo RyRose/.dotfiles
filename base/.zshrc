@@ -104,3 +104,6 @@ preexec_functions+=(set_preexec_win_title)
 
 # Initialize env if available.
 [ -f ~/.local/bin/env ] && . ~/.local/bin/env
+
+# Initialize home-manager session variables if available.
+[ -f /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh ] && source /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh

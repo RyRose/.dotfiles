@@ -92,6 +92,8 @@
       "$menu" =
         "${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
       "$hyprshot" = "${lib.getExe pkgs.hyprshot}";
+      "$webBrowser" = "${lib.getExe pkgs.firefox}";
+      "$youtubeMusic" = "${lib.getExe pkgs.youtube-music}";
 
       #################
       ### AUTOSTART ###
@@ -137,6 +139,7 @@
       general = {
         gaps_in = 3;
         gaps_out = 10;
+        border_size = 2;
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#decoration
@@ -199,7 +202,10 @@
         "$mod, T, exec, $terminal" # Pop OS hotkey
         "$mod, Q, killactive," # Pop OS hotkey
         "$mod CTRL, Q, exec, wlogout" # Mac hotkey
-        "$mod SHIFT, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
+        "$mod SHIFT, Q, exec, wlogout" # Mac hotkey
+        "$mod, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
+        "$mod, M, exec, $youtubeMusic"
+        "$mod, W, exec, $webBrowser"
         "$mod, `, exit,"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, G, togglefloating," # Pop OS hotkey
@@ -291,6 +297,9 @@
         # Smart gaps.
         "w[tv1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
+
+        # Pin workspace 10 to second monitor.
+        "10, monitor:${(lib.elemAt config.my.hyprland.monitors 1).name}"
       ];
 
       windowrule = [

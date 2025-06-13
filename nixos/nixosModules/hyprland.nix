@@ -85,6 +85,7 @@
       hyprshot # screenshot tool for Hyprland
       zathura # PDF viewer
       vlc # media player
+      libreoffice # office suite
     ];
 
     # Optional, hint Electron apps to use Wayland:

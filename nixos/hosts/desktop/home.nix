@@ -7,6 +7,24 @@
 
   my.neovim.enable = true;
   my.hyprland.enable = true;
+  my.hyprland.monitors = [
+    {
+      name = "DP-3";
+      mode = "3440x1440@100";
+      position = "0x0";
+      scale = "1";
+    }
+    {
+      name = "DP-1";
+      mode = "3840x2160@60";
+      position = "3440x0";
+      scale = "2";
+    }
+    {
+      name = "HDMI-A-1";
+      mode = null;
+    }
+  ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

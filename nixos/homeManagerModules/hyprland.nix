@@ -12,6 +12,44 @@
       default = false;
       description = "Enable hyprland.";
     };
+    my.hyprland.monitors = lib.mkOption {
+      type =
+        with lib.types;
+        listOf (submodule {
+          options = {
+            name = lib.mkOption {
+              type = str;
+              description = "The name of the output, e.g., DP-3 or HDMI-A-1.";
+            };
+            mode = lib.mkOption {
+              type = nullOr str;
+              default = null;
+              description = "Resolution and refresh rate like '3440x1440@100'. Use null to disable.";
+            };
+            position = lib.mkOption {
+              type = nullOr str;
+              default = null;
+              description = "Position like '0x0'. Only used if mode is not null.";
+            };
+            scale = lib.mkOption {
+              type = nullOr str;
+              default = null;
+              description = "Scale factor like '1'. Only used if mode is not null.";
+            };
+          };
+        });
+      default = [
+        {
+          name = "";
+          mode = "preferred";
+          position = "auto";
+          scale = "1";
+        }
+      ];
+      description = ''
+        Structured monitor configuration list. Mode = null means the monitor is disabled.
+      '';
+    };
   };
 
   config = lib.mkIf config.my.hyprland.enable {
@@ -37,12 +75,10 @@
 
     wayland.windowManager.hyprland.settings = {
 
-      # TODO: Parameterize when needed.
-      monitor = [
-        "DP-3, 3440x1440@100, 0x0,    1"
-        "DP-1, 3840x2160@60,  3440x0, 2"
-        "HDMI-A-1, disable"
-      ];
+      monitor = map (
+        m:
+        if m.mode == null then "${m.name}, disable" else "${m.name}, ${m.mode}, ${m.position}, ${m.scale}"
+      ) config.my.hyprland.monitors;
 
       ###################
       ### MY PROGRAMS ###
@@ -63,10 +99,6 @@
       # Autostart necessary processes (like notifications daemons, status bars, etc.)
       # Or execute your favorite apps at launch like this:
 
-      # exec-once = $terminal
-      # exec-once = nm-applet &
-      # exec-once = waybar & hyprpaper & firefox
-
       exec-once =
         let
           startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
@@ -78,6 +110,7 @@
             ${lib.getExe pkgs.dunst} &
             ${lib.getExe' pkgs.blueman "blueman-applet"} &
             ${lib.getExe pkgs.hypridle} &
+            ${lib.getExe pkgs.firefox} &
           '';
         in
         ''${startupScript}/bin/start'';
@@ -93,22 +126,6 @@
         "HYPRCURSOR_SIZE,24"
       ];
 
-      ###################
-      ### PERMISSIONS ###
-      ###################
-
-      # See https://wiki.hyprland.org/Configuring/Permissions/
-      # Please note permission changes here require a Hyprland restart and are not applied on-the-fly
-      # for security reasons
-
-      # ecosystem {
-      #   enforce_permissions = 1
-      # }
-
-      # permission = /usr/(bin|local/bin)/grim, screencopy, allow
-      # permission = /usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland, screencopy, allow
-      # permission = /usr/(bin|local/bin)/hyprpm, plugin, allow
-
       #####################
       ### LOOK AND FEEL ###
       #####################
@@ -117,50 +134,14 @@
 
       # https://wiki.hyprland.org/Configuring/Variables/#general
       general = {
-        gaps_in = 5;
-        gaps_out = 5;
-
-        border_size = 1;
-
-        # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-        # Use stylix.
-        # "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        # "col.inactive_border" = "rgba(595959aa)";
-
-        # Set to true enable resizing windows by clicking and dragging on borders and gaps
-        resize_on_border = false;
-
-        # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-        allow_tearing = false;
-
-        layout = "dwindle";
+        gaps_in = 3;
+        gaps_out = 10;
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#decoration
       decoration = {
         rounding = 10;
         rounding_power = 2;
-
-        # Change transparency of focused and unfocused windows
-        active_opacity = 1.0;
-        inactive_opacity = 1.0;
-
-        shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
-          # Use stylix instead.
-          # color = "rgba(1a1a1aee)";
-        };
-
-        # https://wiki.hyprland.org/Configuring/Variables/#blur
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 1;
-
-          vibrancy = 0.1696;
-        };
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#animations
@@ -203,41 +184,7 @@
       };
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-      master = {
-        new_status = "master";
-      };
-
-      # https://wiki.hyprland.org/Configuring/Variables/#misc
-      misc = {
-        force_default_wallpaper = -1; # Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = false; # If true disables the random hyprland logo / anime girl background. :(
-      };
-
-      #############
-      ### INPUT ###
-      #############
-
-      # https://wiki.hyprland.org/Configuring/Variables/#input
-      input = {
-        kb_layout = "us";
-        kb_variant = "";
-        kb_model = "";
-        kb_options = "";
-        kb_rules = "";
-
-        follow_mouse = 1;
-
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-
-        touchpad = {
-          natural_scroll = false;
-        };
-      };
-
-      # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures = {
-        workspace_swipe = false;
-      };
+      master.new_status = "master";
 
       ###################
       ### KEYBINDINGS ###
@@ -338,25 +285,33 @@
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
 
-      # Example windowrule
-      # windowrule = float,class:^(kitty)$,title:^(kitty)$
+      workspace = [
+        # Smart gaps.
+        "w[tv1], gapsout:0, gapsin:0"
+        "f[1], gapsout:0, gapsin:0"
+      ];
 
       windowrule = [
         # Ignore maximize requests from apps. You'll probably like this.
         "suppressevent maximize, class:.*"
         # Fix some dragging issues with XWayland
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        # Smart gaps.
+        "bordersize 0, floating:0, onworkspace:w[tv1]"
+        "rounding 0, floating:0, onworkspace:w[tv1]"
+        "bordersize 0, floating:0, onworkspace:f[1]"
+        "rounding 0, floating:0, onworkspace:f[1]"
       ];
     };
 
-    stylix.targets.waybar.enable = false;
     programs.waybar.enable = true;
+    stylix.targets.waybar.enable = false;
     programs.waybar.style = ../assets/waybar/style.css;
     programs.waybar.settings = {
       mainBar = {
         height = 30; # Waybar height (to be removed for auto height)
         spacing = 10; # Gaps between modules
-        output = "DP-3";
+        output = (lib.elemAt config.my.hyprland.monitors 0).name;
 
         modules-left = [
           "hyprland/workspaces"

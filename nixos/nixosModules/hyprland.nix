@@ -83,6 +83,8 @@
       hyprlock # screen locker for Hyprland
       hypridle # idle detection for Hyprland
       hyprshot # screenshot tool for Hyprland
+      zathura # PDF viewer
+      vlc # media player
     ];
 
     # Optional, hint Electron apps to use Wayland:

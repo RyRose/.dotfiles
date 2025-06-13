@@ -307,6 +307,17 @@
         "w[tv1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
 
+        # Pin workspaces 1-9 to first monitor.
+        "1, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "2, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "3, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "4, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "5, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "6, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "7, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "8, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+        "9, monitor:${(lib.elemAt config.my.hyprland.monitors 0).name}"
+
         # Pin workspace 10 to second monitor.
         "10, monitor:${(lib.elemAt config.my.hyprland.monitors 1).name}"
       ];

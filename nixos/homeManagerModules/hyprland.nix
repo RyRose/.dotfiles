@@ -356,9 +356,6 @@
           "tray"
           "pulseaudio"
           "network"
-          "cpu"
-          "memory"
-          "temperature"
           "clock"
           "custom/wlogout"
         ];
@@ -423,12 +420,13 @@
         };
 
         network = {
-          format-ethernet = "eth 󰈀";
-          format-wifi = "{essid} ({signalStrength}%) ";
-          tooltip-format-ethernet = "{ifname}: {ipaddr}/{cidr} 󰈀";
-          tooltip-format-wifi = "{ifname}: {ipaddr}/{cidr} ";
+          format-ethernet = "󰈀";
+          tooltip-format-ethernet = "{ifname}: {ipaddr}/{cidr}";
+          format-wifi = "";
+          tooltip-format-wifi = "{essid} ({signalStrength}%) - {ifname}: {ipaddr}/{cidr}";
           format-linked = "(No IP) 󱘖";
-          format-disconnected = "Disconnected ⚠";
+          format-disconnected = "⚠";
+          tooltip-format-disconnected = "Disconnected ⚠";
         };
 
         pulseaudio = {

@@ -73,7 +73,7 @@
             systemctl --user start hyprpolkitagent &
             ${lib.getExe pkgs.waybar} &
             ${lib.getExe pkgs.swww} init &
-            ${lib.getExe pkgs.swww} img ${../assets/wallpapers/wallpaper.png} &
+            ${lib.getExe pkgs.swww} img ${../assets/wallpapers/davidcohen-EhSxbBCjr9A-unsplash.jpg} &
             ${lib.getExe pkgs.networkmanagerapplet} &
             ${lib.getExe pkgs.dunst} &
             ${lib.getExe' pkgs.blueman "blueman-applet"} &
@@ -349,7 +349,9 @@
       ];
     };
 
+    stylix.targets.waybar.enable = false;
     programs.waybar.enable = true;
+    programs.waybar.style = ../assets/waybar/style.css;
     programs.waybar.settings = {
       mainBar = {
         height = 30; # Waybar height (to be removed for auto height)

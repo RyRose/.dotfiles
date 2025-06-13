@@ -86,6 +86,8 @@
       zathura # PDF viewer
       vlc # media player
       libreoffice # office suite
+      swayimg # image viewer
+      kitty # terminal emulator, use for images
     ];
 
     # Enable KDE Connect

@@ -46,6 +46,7 @@ alias ls='ls --color=auto'
 alias sl='ls'
 alias vim='nvim'
 alias python=python3
+alias ki='kitten icat'
 
 # Source custom bash aliases.
 [[ -f ~/.config/.bash_aliases ]] && source ~/.config/.bash_aliases

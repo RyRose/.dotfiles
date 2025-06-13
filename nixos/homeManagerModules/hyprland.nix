@@ -211,6 +211,7 @@
         "$mod CTRL, Q, exec, wlogout" # Mac hotkey
         "$mod SHIFT, Q, exec, wlogout" # Mac hotkey
         "$mod, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
+        "$mod SHIFT, S, exec, $hyprshot -m region -o '${config.xdg.userDirs.pictures}/hyprshot'" # Mac screenshot hotkey
         "$mod, M, exec, $musicPlayer"
         "$mod, W, exec, $webBrowser"
         "$mod, P, exec, $passwordManager"

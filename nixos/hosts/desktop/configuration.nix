@@ -103,6 +103,7 @@
     unzip # Unzip files.
     usbutils # USB utilities.
     wget # Download tool.
+    foliate # Epub reader.
   ];
 
   programs.tmux.enable = true;

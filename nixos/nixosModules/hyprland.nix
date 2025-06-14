@@ -28,7 +28,13 @@
 
     programs.hyprland.enable = true;
     programs.hyprland.xwayland.enable = true;
-    services.xserver.enable = true;
+
+    # Enable display manager to boot with uwsm.
+    services.displayManager.enable = true;
+    services.displayManager.sddm.enable = true;
+    services.displayManager.sddm.wayland.enable = true;
+    services.displayManager.defaultSession = "hyprland-uwsm";
+    programs.hyprland.withUWSM = true;
 
     programs.thunar.enable = true;
 
@@ -88,6 +94,7 @@
       libreoffice # office suite
       swayimg # image viewer
       kitty # terminal emulator, use for images
+      brightnessctl # brightness control
     ];
 
     # Enable KDE Connect

@@ -73,8 +73,8 @@
       package = null;
       portalPackage = null;
 
-      # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
-      systemd.variables = [ "--all" ];
+      # Use UWSM (Unified Wayland Session Manager) for Hyprland instead.
+      systemd.enable = false;
     };
 
     wayland.windowManager.hyprland.settings = {
@@ -91,14 +91,19 @@
       # See https://wiki.hyprland.org/Configuring/Keywords/
 
       # Set programs that you use
-      "$terminal" = "${lib.getExe pkgs.ghostty}";
-      "$fileManager" = "${lib.getExe pkgs.xfce.thunar}";
+      "$uwsm" = "${lib.getExe pkgs.uwsm}";
+      "$terminal" = "$uwsm app -- ${lib.getExe pkgs.ghostty}";
+      "$fileManager" = "$uwsm app -- ${lib.getExe pkgs.xfce.thunar}";
       "$menu" =
-        "${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
-      "$hyprshot" = "${lib.getExe pkgs.hyprshot}";
-      "$webBrowser" = "${lib.getExe pkgs.firefox}";
-      "$musicPlayer" = "${lib.getExe pkgs.youtube-music}";
-      "$passwordManager" = "${lib.getExe pkgs.bitwarden-desktop}";
+        "$uwsm app -- ${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
+      "$hyprshot" = "$uwsm app -- ${lib.getExe pkgs.hyprshot}";
+      "$webBrowser" = "$uwsm app -- ${lib.getExe pkgs.firefox}";
+      "$musicPlayer" = "$uwsm app -- ${lib.getExe pkgs.youtube-music}";
+      "$passwordManager" = "$uwsm app -- ${lib.getExe pkgs.bitwarden-desktop}";
+      "$wlogout" = "$uwsm app -- ${lib.getExe pkgs.wlogout}";
+      "$wpctl" = "$uwsm app -- ${lib.getExe' pkgs.wireplumber "wpctl"}";
+      "$brightnessctl" = "$uwsm app -- ${lib.getExe pkgs.brightnessctl}";
+      "$playerctl" = "$uwsm app -- ${lib.getExe pkgs.playerctl}";
 
       #################
       ### AUTOSTART ###
@@ -110,31 +115,28 @@
       exec-once =
         let
           startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-            systemctl --user start hyprpolkitagent &
-            ${lib.getExe pkgs.waybar} &
-            ${lib.getExe pkgs.swww} init &
-            ${lib.getExe pkgs.swww} img ${../assets/wallpapers/davidcohen-EhSxbBCjr9A-unsplash.jpg} &
-            ${lib.getExe pkgs.networkmanagerapplet} &
-            ${lib.getExe pkgs.dunst} &
-            ${lib.getExe' pkgs.blueman "blueman-applet"} &
-            ${lib.getExe pkgs.hypridle} &
-            ${lib.getExe pkgs.firefox} &
-            ${lib.getExe' pkgs.kdePackages.kdeconnect-kde "kdeconnect-indicator"} &
-            ${lib.getExe pkgs.bitwarden-desktop} &
+
+            services=(
+              blueman-applet
+              dunst
+              hypridle
+              hyprpolkitagent
+              kdeconnect
+              kdeconnect-indicator
+              waybar
+            )
+
+            for svc in "${"$"}{services[@]}"; do
+              systemctl --user is-enabled "$svc" >/dev/null 2>&1 || systemctl --user enable "$svc"
+              systemctl --user is-active "$svc"  >/dev/null 2>&1 || systemctl --user start "$svc"
+            done &
+
+            ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.swww} init &
+            ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.swww} img ${../assets/wallpapers/davidcohen-EhSxbBCjr9A-unsplash.jpg} &
+            ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.networkmanagerapplet} &
           '';
         in
         ''${startupScript}/bin/start'';
-
-      #############################
-      ### ENVIRONMENT VARIABLES ###
-      #############################
-
-      # See https://wiki.hyprland.org/Configuring/Environment-variables/
-
-      env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
-      ];
 
       #####################
       ### LOOK AND FEEL ###
@@ -208,14 +210,14 @@
       bind = [
         "$mod, T, exec, $terminal" # Pop OS hotkey
         "$mod, Q, killactive," # Pop OS hotkey
-        "$mod CTRL, Q, exec, wlogout" # Mac hotkey
-        "$mod SHIFT, Q, exec, wlogout" # Mac hotkey
+        "$mod CTRL, Q, exec, $wlogout" # Mac hotkey
+        "$mod SHIFT, Q, exec, $wlogout" # Mac hotkey
         "$mod, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
         "$mod SHIFT, S, exec, $hyprshot -m region -o '${config.xdg.userDirs.pictures}/hyprshot'" # Mac screenshot hotkey
         "$mod, M, exec, $musicPlayer"
         "$mod, W, exec, $webBrowser"
         "$mod, P, exec, $passwordManager"
-        "$mod, `, exit,"
+        "$mod, grave, exec, $uwsm stop"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, G, togglefloating," # Pop OS hotkey
         "$mod, Space, exec, $menu"
@@ -279,20 +281,20 @@
 
       # Laptop multimedia keys for volume and LCD brightness
       bindel = [
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+        ",XF86AudioRaiseVolume, exec, $wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, $wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",XF86AudioMute, exec, $wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioMicMute, exec, $wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86MonBrightnessUp, exec, $brightnessctl -e4 -n2 set 5%+"
+        ",XF86MonBrightnessDown, exec, $brightnessctl -e4 -n2 set 5%-"
       ];
 
       # Requires playerctl
       bindl = [
-        ",XF86AudioNext, exec, playerctl next"
-        ",XF86AudioPause, exec, playerctl play-pause"
-        ",XF86AudioPlay, exec, playerctl play-pause"
-        ",XF86AudioPrev, exec, playerctl previous"
+        ",XF86AudioNext, exec, $playerctl next"
+        ",XF86AudioPause, exec, $playerctl play-pause"
+        ",XF86AudioPlay, exec, $playerctl play-pause"
+        ",XF86AudioPrev, exec, $playerctl previous"
       ];
 
       ##############################
@@ -380,7 +382,7 @@
         "custom/wlogout" = {
           format = "⏻  "; # Add padding to right-hand side.
           tooltip = "Logout";
-          on-click = "wlogout";
+          on-click = "${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.wlogout}";
           interval = 0;
         };
 
@@ -445,7 +447,7 @@
               ""
             ];
           };
-          on-click = "pavucontrol";
+          on-click = "${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.pavucontrol}";
         };
       };
     };
@@ -457,7 +459,6 @@
     services.hypridle.settings = {
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
-        ignore_dbus_inhibit = false;
         lock_cmd = "hyprlock";
       };
 

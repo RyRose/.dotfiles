@@ -95,6 +95,7 @@
       swayimg # image viewer
       kitty # terminal emulator, use for images
       brightnessctl # brightness control
+      playerctl # media player control
     ];
 
     # Enable KDE Connect

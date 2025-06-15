@@ -65,6 +65,8 @@
     services.kdeconnect.indicator = true;
     services.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
 
+    services.playerctld.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true; # enable Hyprland
 
@@ -348,6 +350,7 @@
 
         modules-left = [
           "hyprland/workspaces"
+          "mpris"
         ];
 
         modules-center = [
@@ -387,7 +390,7 @@
         };
 
         clock = {
-          format = "{:%I:%M %p}";
+          format = "{:%a, %Y-%m-%d %I:%M %p}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           format-alt = "{:%Y-%m-%d}";
         };
@@ -429,6 +432,22 @@
           format-linked = "(No IP) 󱘖";
           format-disconnected = "⚠";
           tooltip-format-disconnected = "Disconnected ⚠";
+        };
+
+        mpris = {
+          ignored-players = [ "kdeconnect" ];
+          format = "{dynamic}";
+          format-paused = "{dynamic}";
+          interval = 1;
+          player-icons = {
+            default = "▶";
+            firefox = "";
+            chromium = "";
+          };
+          status-icons = {
+            playing = "▶";
+            paused = "";
+          };
         };
 
         pulseaudio = {

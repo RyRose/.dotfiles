@@ -104,6 +104,7 @@
     usbutils # USB utilities.
     wget # Download tool.
     foliate # Epub reader.
+    calibre # Ebook management software.
   ];
 
   programs.tmux.enable = true;

@@ -17,6 +17,9 @@
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
+    # Make stateless to address bug:
+    # https://github.com/NixOS/nixpkgs/issues/272907
+    services.printing.stateless = true;
 
     # Enable autodiscovery of network printers.
     # https://nixos.wiki/wiki/Printing

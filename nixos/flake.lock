@@ -67,6 +67,40 @@
         "type": "github"
       }
     },
+    "catppuccin-hyprland": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718784939,
+        "narHash": "sha256-xSa/z0Pu+ioZ0gFH9qSo9P94NPkEMovstm1avJ7rvzM=",
+        "owner": "catppuccin",
+        "repo": "hyprland",
+        "rev": "c388ac55563ddeea0afe9df79d4bfff0096b146b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "hyprland",
+        "rev": "c388ac55563ddeea0afe9df79d4bfff0096b146b",
+        "type": "github"
+      }
+    },
+    "catppuccin-hyprlock": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748874053,
+        "narHash": "sha256-kgVlPaWeaH/p0qGc1+Lj2H6YlDAk5CemNo1FFF8ymZ8=",
+        "owner": "catppuccin",
+        "repo": "hyprlock",
+        "rev": "f650895064ae80db7c0e095829fce83fd85d0b26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "hyprlock",
+        "rev": "f650895064ae80db7c0e095829fce83fd85d0b26",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -338,13 +372,33 @@
         "type": "github"
       }
     },
+    "rofi-themes-collection": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745591329,
+        "narHash": "sha256-96wSyOp++1nXomnl8rbX5vMzaqRhTi/N7FUq6y0ukS8=",
+        "owner": "newmanls",
+        "repo": "rofi-themes-collection",
+        "rev": "ec731cef79d39fc7ae12ef2a70a2a0dd384f9730",
+        "type": "github"
+      },
+      "original": {
+        "owner": "newmanls",
+        "repo": "rofi-themes-collection",
+        "rev": "ec731cef79d39fc7ae12ef2a70a2a0dd384f9730",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "catppuccin-hyprland": "catppuccin-hyprland",
+        "catppuccin-hyprlock": "catppuccin-hyprlock",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "rofi-themes-collection": "rofi-themes-collection",
         "stylix": "stylix"
       }
     },

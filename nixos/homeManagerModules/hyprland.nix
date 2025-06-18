@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -81,6 +82,8 @@
 
     wayland.windowManager.hyprland.settings = {
 
+      source = "${inputs.catppuccin-hyprland}/themes/frappe.conf";
+
       monitor = map (
         m:
         if m.mode == null then "${m.name}, disable" else "${m.name}, ${m.mode}, ${m.position}, ${m.scale}"
@@ -100,9 +103,10 @@
         "$uwsm app -- ${lib.getExe pkgs.rofi-wayland} -show combi -modes combi -combi-modes 'drun,run' -show-icons";
       "$hyprshot" = "$uwsm app -- ${lib.getExe pkgs.hyprshot}";
       "$webBrowser" = "$uwsm app -- ${lib.getExe pkgs.firefox}";
-      "$musicPlayer" = "$uwsm app -- ${lib.getExe pkgs.youtube-music}";
+      "$youtubeMusic" = "$uwsm app -- ${lib.getExe pkgs.youtube-music}";
       "$passwordManager" = "$uwsm app -- ${lib.getExe pkgs.bitwarden-desktop}";
       "$wlogout" = "$uwsm app -- ${lib.getExe pkgs.wlogout}";
+      "$hyprlock" = "$uwsm app -- ${lib.getExe pkgs.hyprlock}";
       "$wpctl" = "$uwsm app -- ${lib.getExe' pkgs.wireplumber "wpctl"}";
       "$brightnessctl" = "$uwsm app -- ${lib.getExe pkgs.brightnessctl}";
       "$playerctl" = "$uwsm app -- ${lib.getExe pkgs.playerctl}";
@@ -210,21 +214,26 @@
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       bind = [
-        "$mod, T, exec, $terminal" # Pop OS hotkey
-        "$mod, Q, killactive," # Pop OS hotkey
-        "$mod CTRL, Q, exec, $wlogout" # Mac hotkey
-        "$mod SHIFT, Q, exec, $wlogout" # Mac hotkey
+
+        # Programs
+        "$mod, T, exec, $terminal"
+        "$mod CTRL, Q, exec, $wlogout"
+        "$mod SHIFT, Q, exec, $hyprlock"
         "$mod, S, exec, $hyprshot -m region --clipboard-only" # Mac screenshot hotkey
         "$mod SHIFT, S, exec, $hyprshot -m region -o '${config.xdg.userDirs.pictures}/hyprshot'" # Mac screenshot hotkey
-        "$mod, M, exec, $musicPlayer"
+        "$mod, Y, exec, $youtubeMusic"
         "$mod, W, exec, $webBrowser"
         "$mod, P, exec, $passwordManager"
         "$mod, grave, exec, $uwsm stop"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
-        "$mod, G, togglefloating," # Pop OS hotkey
         "$mod, Space, exec, $menu"
+
+        # Misc window management
+        "$mod, G, togglefloating," # Pop OS hotkey
         "$mod, I, pseudo," # dwindle
         "$mod, O, togglesplit, " # dwindle, Pop OS hotkey
+        "$mod, Q, killactive," # Pop OS hotkey
+        "$mod, M, fullscreen, 1"
 
         # Move focus with mod + arrow keys
         "$mod, h, movefocus, l"
@@ -471,7 +480,105 @@
       };
     };
 
-    programs.hyprlock.enable = true;
+    stylix.targets.hyprlock.enable = false;
+    programs.hyprlock = {
+      enable = true;
+      extraConfig = ''
+        source = ${inputs.catppuccin-hyprland}/themes/frappe.conf
+
+        $accent = $mauve
+        $accentAlpha = $mauveAlpha
+        $font = JetBrainsMono Nerd Font
+
+        general {
+          hide_cursor = true
+        }
+
+        background {
+          monitor =
+          path = ${../assets/wallpapers/davidcohen-EhSxbBCjr9A-unsplash.jpg}
+          blur_passes = 0
+          color = $base
+        }
+
+        label {
+          monitor =
+          text = Layout: $LAYOUT
+          color = $text
+          font_size = 25
+          font_family = $font
+          position = 30, -30
+          halign = left
+          valign = top
+        }
+
+        label {
+          monitor =
+          text = $TIME
+          color = $text
+          font_size = 90
+          font_family = $font
+          position = -30, 0
+          halign = right
+          valign = top
+        }
+
+        label {
+          monitor =
+          text = cmd[update:43200000] date +"%A, %d %B %Y"
+          color = $text
+          font_size = 25
+          font_family = $font
+          position = -30, -150
+          halign = right
+          valign = top
+        }
+
+        {
+          monitor = "";
+          text = "$FPRINTPROMPT";
+          color = "$text";
+          font_size = 14;
+          font_family = $font;
+          position = "0, -107";
+          halign = "center";
+          valign = "center";
+        }
+
+        image {
+          monitor =
+          path = ${../assets/edward-howell-dZ3YRMco4XU-unsplash.jpg}
+          size = 100
+          border_color = $accent
+          position = 0, 75
+          halign = center
+          valign = center
+        }
+
+        input-field {
+          monitor =
+          size = 300, 60
+          outline_thickness = 4
+          dots_size = 0.2
+          dots_spacing = 0.2
+          dots_center = true
+          outer_color = $accent
+          inner_color = $surface0
+          font_color = $text
+          fade_on_empty = false
+          placeholder_text = <span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>
+          hide_input = false
+          check_color = $accent
+          fail_color = $red
+          fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
+          capslock_color = $yellow
+          position = 0, -47
+          halign = center
+          valign = center
+        }
+      '';
+    };
+
     programs.wlogout.enable = true;
 
     services.hypridle.enable = true;
@@ -497,6 +604,7 @@
     programs.rofi = {
       enable = true;
       terminal = lib.getExe pkgs.ghostty;
+      theme = lib.mkForce "${inputs.rofi-themes-collection}/themes/rounded-nord-dark.rasi";
     };
   };
 }

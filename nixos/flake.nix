@@ -18,7 +18,18 @@
       url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    rofi-themes-collection = {
+      url = "github:newmanls/rofi-themes-collection/ec731cef79d39fc7ae12ef2a70a2a0dd384f9730";
+      flake = false;
+    };
+    catppuccin-hyprland = {
+      url = "github:catppuccin/hyprland/c388ac55563ddeea0afe9df79d4bfff0096b146b";
+      flake = false;
+    };
+    catppuccin-hyprlock = {
+      url = "github:catppuccin/hyprlock/f650895064ae80db7c0e095829fce83fd85d0b26";
+      flake = false;
+    };
   };
 
   outputs =

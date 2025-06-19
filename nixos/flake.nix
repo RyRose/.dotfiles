@@ -30,6 +30,10 @@
       url = "github:catppuccin/hyprlock/f650895064ae80db7c0e095829fce83fd85d0b26";
       flake = false;
     };
+    catppuccin-waybar = {
+      url = "github:catppuccin/waybar/ee8ed32b4f63e9c417249c109818dcc05a2e25da";
+      flake = false;
+    };
   };
 
   outputs =

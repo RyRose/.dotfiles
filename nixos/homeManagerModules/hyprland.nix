@@ -115,9 +115,6 @@
       ### AUTOSTART ###
       #################
 
-      # Autostart necessary processes (like notifications daemons, status bars, etc.)
-      # Or execute your favorite apps at launch like this:
-
       exec-once =
         let
           startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
@@ -198,7 +195,7 @@
 
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       dwindle = {
-        pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mod + P in the keybinds section below
+        pseudotile = true; # Master switch for pseudotiling.
         preserve_split = true; # You probably want this
       };
 
@@ -350,7 +347,11 @@
 
     programs.waybar.enable = true;
     stylix.targets.waybar.enable = false;
-    programs.waybar.style = ../assets/waybar/style.css;
+    programs.waybar.style =
+      ''
+        @import "${inputs.catppuccin-waybar}/themes/frappe.css";
+      ''
+      + (builtins.readFile ../assets/waybar/style.css);
     programs.waybar.settings = {
       mainBar = {
         height = 30; # Waybar height (to be removed for auto height)

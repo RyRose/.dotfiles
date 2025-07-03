@@ -15,6 +15,9 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-syntax-highlighting
+if command -v direnv >/dev/null 2>&1; then
+  antigen bundle direnv
+fi
 
 # nvm is slow, lazily load on first use.
 zstyle ':omz:plugins:nvm' lazy yes

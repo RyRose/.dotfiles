@@ -105,8 +105,10 @@
     wget # Download tool.
     foliate # Epub reader.
     calibre # Ebook management software.
+    gh # GitHub CLI.
   ];
 
+  programs.direnv.enable = true;
   programs.tmux.enable = true;
   programs.zsh.enable = true;
   programs.command-not-found.enable = true;

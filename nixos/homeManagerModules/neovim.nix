@@ -22,6 +22,7 @@
     programs.neovim.package = pkgs.unstable.neovim-unwrapped;
     programs.neovim.extraPackages = with pkgs; [
       cargo # rust package manager
+      coursier # Scala package manager
       fd # find tool
       gcc # GNU Compiler Collection
       gnumake # GNU make
@@ -32,6 +33,7 @@
       luajitPackages.tiktoken_core # https://github.com/CopilotC-Nvim/CopilotChat.nvim?tab=readme-ov-file#optional-dependencies
       luarocks # Lua package manager
       lynx # Text-based web browser
+      metals # Scala language server
       nixfmt-rfc-style # Nix formatter
       nodejs # Node.js
       php # PHP programming language

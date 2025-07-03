@@ -42,6 +42,7 @@
       python3Packages.pip # Python package manager
       ripgrep # Search tool
       rustc # Rust compiler
+      scalafmt # Scala formatter
       sqlfluff # SQL linter and formatter
       stylua # Lua formatter
       tree-sitter # Parser generator tool

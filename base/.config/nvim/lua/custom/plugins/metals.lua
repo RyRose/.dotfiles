@@ -10,6 +10,9 @@ return {
       -- your on_attach function
     end
 
+    -- Use fidget.nvim for status messages.
+    metals_config.init_options.statusBarProvider = 'off'
+
     return metals_config
   end,
   config = function(self, metals_config)

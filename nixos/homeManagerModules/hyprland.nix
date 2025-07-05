@@ -62,11 +62,18 @@
     stylix.targets.neovide.enable = false;
     stylix.targets.nvf.enable = false;
 
-    services.kdeconnect.enable = true;
-    services.kdeconnect.indicator = true;
-    services.kdeconnect.package = pkgs.kdePackages.kdeconnect-kde;
+    services.kdeconnect = {
+      enable = true;
+      indicator = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
+    };
 
+    # Miscellaneous services to enable
+    services.blueman-applet.enable = true;
     services.playerctld.enable = true;
+    services.hyprpolkitagent.enable = true;
+    services.network-manager-applet.enable = true;
+    services.swww.enable = true;
 
     wayland.windowManager.hyprland = {
       enable = true; # enable Hyprland
@@ -126,6 +133,9 @@
               hyprpolkitagent
               kdeconnect
               kdeconnect-indicator
+              network-manager-applet
+              playerctld
+              swww
               waybar
             )
 
@@ -134,9 +144,7 @@
               systemctl --user is-active "$svc"  >/dev/null 2>&1 || systemctl --user start "$svc"
             done &
 
-            ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.swww} init &
             ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.swww} img ${../assets/wallpapers/davidcohen-EhSxbBCjr9A-unsplash.jpg} &
-            ${lib.getExe pkgs.uwsm} app -- ${lib.getExe pkgs.networkmanagerapplet} &
           '';
         in
         ''${startupScript}/bin/start'';

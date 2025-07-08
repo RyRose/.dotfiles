@@ -84,6 +84,7 @@
     ghostty # Terminal.
     youtube-music # YouTube Music client.
     bitwarden-desktop # Password manager.
+    jetbrains-toolbox # JetBrains Toolbox for managing IDEs.
 
     # Useful CLI tools/utilities.
     bc # Calculator.

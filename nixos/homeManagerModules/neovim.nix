@@ -28,6 +28,7 @@
       gnumake # GNU make
       go # Go programming language
       jdk # Java Development Kit
+      ktlint # Kotlin linter
       lua # Lua programming language
       luajitPackages.lua-lsp # Lua language server
       luajitPackages.tiktoken_core # https://github.com/CopilotC-Nvim/CopilotChat.nvim?tab=readme-ov-file#optional-dependencies

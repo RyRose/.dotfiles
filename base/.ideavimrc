@@ -1,7 +1,64 @@
-# Custom .vimrc for intellij IDEs.
-# https://github.com/JetBrains/ideavim?tab=readme-ov-file#Files
+" Custom .vimrc for intellij IDEs.
+" https://github.com/JetBrains/ideavim?tab=readme-ov-file#Files
 
-# Turn off bell sound.
+" Turn off bell sound.
 set belloff=all
 set noerrorbells
 set visualbell
+
+" Set Space as leader
+let mapleader = ' '
+let maplocalleader = ' '
+
+" Go to Definition (gd)
+map gd <Action>(GotoDeclaration)
+
+" Go to References (gr)
+map gr <Action>(FindUsages)
+
+" Go to Implementation (gI)
+map gI <Action>(GotoImplementation)
+
+" Go to Type Definition (<leader>D)
+map <leader>D <Action>(GotoTypeDeclaration)
+
+" Document Symbols (<leader>ds)
+map <leader>ds <Action>(FileStructurePopup)
+
+" Workspace Symbols (<leader>ws)
+map <leader>ws <Action>(SearchEverywhere)
+
+" Rename Symbol (<leader>rn)
+map <leader>rn <Action>(RenameElement)
+
+" Code Action (<leader>ca)
+map <leader>ca <Action>(ShowIntentionActions)
+
+" Go to Declaration (gD)
+map gD <Action>(GotoDeclaration)
+
+" Format Modified Buffer (<leader>F)
+map <leader>F <Action>(ReformatCode)
+
+" Toggle Inlay Hints (<leader>th) — no direct action
+" Suggest binding to Settings or a macro if needed
+" Or open settings dialog for inlay hints
+map <leader>th <Action>(ShowSettings)
+
+" (No IntelliJ equivalent for CursorHold LSP highlights like in Neovim)
+
+" Vim-style window (split) navigation with leader + h/j/k/l
+map <leader>h <C-w>h
+map <leader>j <C-w>j
+map <leader>k <C-w>k
+map <leader>l <C-w>l
+
+" Split windows like tmux
+map <leader>| :vsplit<CR>
+map <leader>_ :split<CR>
+
+" Toggle maximize editor (zoom) with leader + m
+map <leader>m <Cmd>HideAllWindows<CR>
+
+" Optional: quick exit insert mode (like 'jj')
+inoremap jj <Esc>

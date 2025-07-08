@@ -229,7 +229,6 @@
         "$mod, Y, exec, $youtubeMusic"
         "$mod, W, exec, $webBrowser"
         "$mod, P, exec, $passwordManager"
-        "$mod, grave, exec, $uwsm stop"
         "$mod, F, exec, $fileManager" # Pop OS hotkey
         "$mod, Space, exec, $menu"
 

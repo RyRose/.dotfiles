@@ -33,6 +33,7 @@ return {
         'taplo',
         'templ',
         'yamlfmt',
+        'ktlint',
       })
     end,
     opts = {
@@ -79,6 +80,7 @@ return {
         templ = { 'templ' },
         sql = { 'sqlfluff' },
         nix = { 'nixfmt' },
+        kotlin = { 'ktlint' },
         ['*'] = { 'trim_whitespace' },
       },
     },

@@ -89,6 +89,7 @@
               nixpkgs.overlays = [ overlay-nixpkgs-darwin ];
             }
           )
+          stylix.darwinModules.stylix
           ./hosts/laptop/configuration.nix
           home-manager.darwinModules.default
         ];

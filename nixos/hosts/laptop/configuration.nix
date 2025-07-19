@@ -8,8 +8,8 @@
 {
 
   imports = [
-    ../../nixosModules/default.nix
     inputs.home-manager.darwinModules.default
+    ../../nixosModules/flakes.nix
   ];
 
   users.users.ryan = {

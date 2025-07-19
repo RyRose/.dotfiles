@@ -16,6 +16,10 @@ vim.g.enable_copilot = true
 -- Enable blink instead of nvim-cmp.
 vim.g.enable_blink = false
 
+-- List of git repositories to enable LSP modified on save.
+-- Defaults to no repositories.
+vim.b.format_lsp_modified_on_save_repos = nil
+
 -- Arbitrary lua code to run before Lazy is loaded.
 pcall(require, 'custom.before')
 

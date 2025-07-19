@@ -1,8 +1,4 @@
 vim.g.format_lsp_modified_on_save = function()
-  -- If filetype is scala, return true
-  if vim.bo.filetype == 'scala' then
-    return true
-  end
   if vim.g.format_lsp_modified_on_save_repos == nil then
     return false
   end

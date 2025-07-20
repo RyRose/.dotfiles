@@ -31,6 +31,7 @@
       "firefox"
       "ghostty"
       "rectangle"
+      "steam"
     ];
   };
 

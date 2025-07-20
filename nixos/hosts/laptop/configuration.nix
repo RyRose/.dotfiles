@@ -30,6 +30,7 @@
       "bitwarden"
       "firefox"
       "ghostty"
+      "plex"
       "rectangle"
       "steam"
     ];

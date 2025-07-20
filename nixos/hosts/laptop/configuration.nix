@@ -9,7 +9,41 @@
 
   imports = [
     inputs.home-manager.darwinModules.default
-    ../../nixosModules/flakes.nix
+  ];
+
+  # Disable nix management for determinate nix compatibility.
+  nix.enable = false;
+
+  # Needed for homebrew:
+  # You currently have the following primary‐user‐requiring options set:
+  # * `homebrew.enable`
+  # To continue using these options, set `system.primaryUser` to the name
+  # of the user you have been using to run `darwin-rebuild`. In the long
+  # run, this setting will be deprecated and removed after all the
+  # functionality it is relevant for has been adjusted to allow
+  # specifying the relevant user separately, moved under the
+  # `users.users.*` namespace, or migrated to Home Manager.
+  system.primaryUser = "ryan";
+  homebrew = {
+    enable = true;
+    casks = [
+      "bitwarden"
+      "firefox"
+      "ghostty"
+      "rectangle"
+    ];
+  };
+
+  # Enable sudo with touch ID.
+  security.pam.services.sudo_local.touchIdAuth = true;
+
+  # Enable natural scrolling.
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
+
+  system.defaults.dock.persistent-apps = [
+    { app = "/Applications/Firefox.app"; }
+    { app = "/Applications/Ghostty.app"; }
+    { app = "/Applications/Bitwarden.app"; }
   ];
 
   users.users.ryan = {
@@ -24,38 +58,25 @@
     users.ryan = import ./home.nix;
   };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    # Desktop tools/enhancements/apps.
-    # ghostty # Terminal.
-    # gnomeExtensions.pop-shell # Window tiler for gnome.
-    # wl-clipboard # Clipboard manager for Wayland.
-
-    tmux
-
     # Useful CLI tools/utilities.
-    # bc # Calculator.
+    btop # Resource monitor (alternative to htop).
     delta # Git diff tool.
     fd # Find tool.
     git # Version control system.
-    # google-cloud-sdk-gce # Google Cloud SDK for GCE.
     jq # JSON processor.
-    # pciutils # PCI utilities.
-    # ripgrep # Search tool.
+    ripgrep # Search tool.
     starship # Terminal prompt.
     stow # Symlink manager for dotfiles.
+    tmux
     unzip # Unzip files.
-    # usbutils # USB utilities.
-    # wget # Download tool.
-    # libreoffice-qt # LibreOffice with Qt5 support.
-    # hunspell # Spell checker.
-
-    btop # Resource monitor (alternative to htop).
+    wget # Download tool.
   ];
 
-  # programs.tmux.enable = true;
+  programs.tmux.enable = true;
+
+  system.defaults.dock.autohide = true;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -65,5 +86,5 @@
   system.stateVersion = 5;
 
   # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "x86_64-darwin";
+  nixpkgs.hostPlatform = "aarch64-darwin";
 }

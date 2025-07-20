@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# nix run nix-darwin/nix-darwin-25.05#darwin-rebuild \
-#     -- switch --flake "${HOME}/.dotfiles/nixos#laptop" $@
-
-sudo darwin-rebuild switch --flake "${HOME}/.dotfiles/nixos#laptop" $@
+if ! command -v darwin-rebuild >/dev/null 2>&1; then
+    sudo nix run nix-darwin/master#darwin-rebuild \
+        -- switch --flake "${HOME}/.dotfiles/nixos#laptop" $@
+else
+    sudo darwin-rebuild switch --flake "${HOME}/.dotfiles/nixos#laptop" $@
+fi

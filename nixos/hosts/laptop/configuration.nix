@@ -33,6 +33,9 @@
       "plex"
       "rectangle"
       "steam"
+      "tailscale"
+      "th-ch/youtube-music/youtube-music"
+      "nikitabobko/tap/aerospace"
     ];
   };
 
@@ -41,6 +44,9 @@
 
   # Enable natural scrolling.
   system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
+
+  # Enable ctrl + cmd to drag windows.
+  system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
 
   system.defaults.dock.persistent-apps = [
     { app = "/Applications/Firefox.app"; }
@@ -61,10 +67,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-
-    # Useful CLI tools/utilities.
     btop # Resource monitor (alternative to htop).
     delta # Git diff tool.
+    direnv # Environment variable manager.
     fd # Find tool.
     git # Version control system.
     jq # JSON processor.

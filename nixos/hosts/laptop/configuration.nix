@@ -26,17 +26,23 @@
   system.primaryUser = "ryan";
   homebrew = {
     enable = true;
+    onActivation.cleanup = "uninstall";
+    taps = [
+      "nikitabobko/tap"
+      "th-ch/youtube-music"
+    ];
     casks = [
+      "aerospace"
       "bitwarden"
       "firefox"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
-      "nikitabobko/tap/aerospace"
+      "intellij-idea-ce"
       "plex"
       "rectangle"
       "steam"
-      "tailscale"
-      "th-ch/youtube-music/youtube-music"
+      "tailscale-app"
+      "youtube-music"
     ];
   };
 
@@ -73,6 +79,7 @@
     direnv # Environment variable manager.
     fd # Find tool.
     git # Version control system.
+    glow # Markdown viewer.
     jq # JSON processor.
     ripgrep # Search tool.
     starship # Terminal prompt.

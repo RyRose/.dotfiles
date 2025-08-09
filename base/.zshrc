@@ -65,6 +65,9 @@ command -v starship &>/dev/null && eval "$(starship init zsh)"
 # Set up fzf key bindings and fuzzy completion
 command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
 
+# Set up zoxide for directory navigation
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
+
 function set_precmd_win_title() {
 	if [ -z "${TMUX}" ]; then
 		return

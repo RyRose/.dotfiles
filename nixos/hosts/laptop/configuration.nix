@@ -29,13 +29,14 @@
     casks = [
       "bitwarden"
       "firefox"
+      "font-jetbrains-mono-nerd-font"
       "ghostty"
+      "nikitabobko/tap/aerospace"
       "plex"
       "rectangle"
       "steam"
       "tailscale"
       "th-ch/youtube-music/youtube-music"
-      "nikitabobko/tap/aerospace"
     ];
   };
 
@@ -79,6 +80,7 @@
     tmux
     unzip # Unzip files.
     wget # Download tool.
+    zoxide # Smart cd command.
   ];
 
   programs.tmux.enable = true;

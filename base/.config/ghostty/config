@@ -1,6 +1,5 @@
-background-opacity = 0.99
+background-opacity = .99
 command = ~/.config/ghostty/command.sh
-font-family = "JetBrainsMono Nerd Font"
 font-size = 15
 keybind = ctrl+space>shift+o=reload_config
 theme = catppuccin-frappe

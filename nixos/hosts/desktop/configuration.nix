@@ -107,6 +107,10 @@
     foliate # Epub reader.
     calibre # Ebook management software.
     gh # GitHub CLI.
+
+    # GNUPG and pinentry for secure operations.
+    gnupg
+    pinentry-all
   ];
 
   programs.direnv.enable = true;
@@ -127,8 +131,8 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
 
-  # Use local time for dual boot compatibility.
-  time.hardwareClockInLocalTime = true;
+  # Use UTC time but in Windows dual boot, configure to use UTC instead of localtime.
+  time.hardwareClockInLocalTime = false;
 
   # Bootloader.
   boot.loader.timeout = 1;

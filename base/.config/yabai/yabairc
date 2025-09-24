@@ -1,0 +1,105 @@
+#!/usr/bin/env sh
+
+#
+# ~/.yabairc
+# Make sure it is executable: chmod +x ~/.yabairc
+#
+
+# Start yabai on login (handled by brew services or launchd, not inside config)
+# equivalent to: start-at-login = false
+# -> if you want auto-start, run: brew services start yabai
+
+# Normalize containers → not applicable in yabai
+# Accordion layout → not in yabai (bsp only)
+
+# Default layout (tiles in AeroSpace)
+yabai -m config layout bsp
+
+# Default split orientation
+# AeroSpace “auto” ~ yabai default behavior (splits depend on window ratio)
+
+# Mouse follows focus when monitor changes
+yabai -m config mouse_follows_focus on
+
+# Automatically unhide hidden macOS apps (not possible in yabai)
+# You can instead disable hiding keys via skhd
+
+# Gaps (equivalent to AeroSpace [gaps])
+yabai -m config window_gap 0
+yabai -m config top_padding    0
+yabai -m config bottom_padding 0
+yabai -m config left_padding   0
+yabai -m config right_padding  0
+
+# --- Keybindings ---
+# In yabai, use skhd for keybinds (~/.skhdrc)
+
+# ~/.skhdrc
+# ------------------
+
+# Launch terminal (uncomment if wanted)
+# alt - return : open -na Terminal
+
+# Layout switching
+alt - slash : yabai -m config layout bsp
+alt - comma : yabai -m config layout stack
+
+# Focus movement
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# Move windows
+alt + shift - h : yabai -m window --swap west
+alt + shift - j : yabai -m window --swap south
+alt + shift - k : yabai -m window --swap north
+alt + shift - l : yabai -m window --swap east
+
+# Resize windows
+alt - minus : yabai -m window --resize left:-50:0; \
+              yabai -m window --resize right:-50:0
+alt - equal : yabai -m window --resize left:50:0; \
+              yabai -m window --resize right:50:0
+
+# Workspaces (spaces in yabai)
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+
+# Move window to space
+alt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1
+alt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2
+alt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3
+alt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4
+alt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5
+alt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6
+alt + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7
+alt + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8
+alt + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9
+
+# macOS native fullscreen toggle
+alt - m : yabai -m window --toggle zoom-fullscreen
+
+# Back and forth workspace (yabai has no built-in toggle, hack with jq/state if wanted)
+# skipping direct equivalent
+
+# Move space to monitor
+alt + shift - tab : yabai -m space --focus next
+
+# Service mode bindings from AeroSpace
+# reload config
+alt + shift - r : yabai --restart
+
+# Toggle floating
+alt + shift - f : yabai -m window --toggle float
+
+# Close all but current (no direct command, script required)
+# For now just close window:
+alt + backspace : yabai -m window --close

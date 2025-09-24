@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../homeManagerModules/default.nix
+    ../../homeManagerModules/neovim.nix
   ];
 
   my.neovim.enable = true;

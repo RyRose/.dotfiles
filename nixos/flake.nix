@@ -13,7 +13,6 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     stylix = {
       url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,29 +47,33 @@
       ...
     }@inputs:
     let
-      overlay-nixpkgs = system: final: prev: {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
+      overlay-nixpkgs =
+        system:
+        { ... }:
+        {
+          nixpkgs.overlays = [
+            (final: prev: {
+              unstable = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+              };
+              master = import nixpkgs-master {
+                inherit system;
+                config.allowUnfree = true;
+              };
+            })
+          ];
         };
-        master = import nixpkgs-master {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
-      overlay-nixpkgs-darwin = overlay-nixpkgs "x86_64-darwin";
-      overlay-nixpkgs-linux = overlay-nixpkgs "x86_64-linux";
+      overlay-nixpkgs-x86_64-darwin = overlay-nixpkgs "x86_64-darwin";
+      overlay-nixpkgs-aarch64-darwin = overlay-nixpkgs "aarch64-darwin";
+      overlay-nixpkgs-x86_64-linux = overlay-nixpkgs "x86_64-linux";
     in
     {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          (
-            { ... }:
-            {
-              nixpkgs.overlays = [ overlay-nixpkgs-linux ];
-            }
-          )
+          overlay-nixpkgs-x86_64-linux
           stylix.nixosModules.stylix
           home-manager.nixosModules.default
           ./hosts/desktop/configuration.nix
@@ -78,20 +81,16 @@
       };
 
       darwinConfigurations.laptop = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
         specialArgs = {
           inherit inputs;
           inherit self;
         };
         modules = [
-          (
-            { ... }:
-            {
-              nixpkgs.overlays = [ overlay-nixpkgs-darwin ];
-            }
-          )
+          overlay-nixpkgs-aarch64-darwin
           stylix.darwinModules.stylix
-          ./hosts/laptop/configuration.nix
           home-manager.darwinModules.default
+          ./hosts/laptop/configuration.nix
         ];
       };
     };

@@ -1,0 +1,6 @@
+export JAVA_8_HOME="${HOME}/.sdkman/candidates/java/8.0.462-amzn"
+export JAVA_11_HOME="${HOME}/.sdkman/candidates/java/11.0.28-amzn"
+export JAVA_17_HOME="${HOME}/.sdkman/candidates/java/17.0.16-amzn"
+export JAVA_GRAALVM17_HOME="${HOME}/.sdkman/candidates/java/17.0.9-graalce"
+export JAVA_21_HOME="${HOME}/.sdkman/candidates/java/21.0.8-tem"
+export JAVA_24_HOME="${HOME}/.sdkman/candidates/java/24.0.2-amzn"

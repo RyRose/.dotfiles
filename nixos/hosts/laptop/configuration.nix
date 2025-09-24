@@ -31,13 +31,20 @@
       "nikitabobko/tap"
       "th-ch/youtube-music"
     ];
+    brews = [
+      "docker"
+    ];
     casks = [
       "aerospace"
+      "betterdisplay"
       "bitwarden"
+      "docker-desktop"
       "firefox"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
+      "google-chrome"
       "intellij-idea-ce"
+      "obsidian"
       "plex"
       "rectangle"
       "steam"
@@ -49,11 +56,14 @@
   # Enable sudo with touch ID.
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # Enable natural scrolling.
-  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
+  # Disable natural scrolling.
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
 
   # Enable ctrl + cmd to drag windows.
   system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
+
+  # Disable press and hold for keys.
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
   system.defaults.dock.persistent-apps = [
     { app = "/Applications/Firefox.app"; }

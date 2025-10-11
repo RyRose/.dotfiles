@@ -3,52 +3,11 @@
 # Use vi mode for zsh. Must to be at top to make sure everything assumes vi mode.
 bindkey -v
 
-# Download antigen if unavailable and source.
-[ ! -f ~/.config/antigen.zsh ] && curl -s -L git.io/antigen >~/.config/antigen.zsh
-source ~/.config/antigen.zsh
-antigen use oh-my-zsh
-
-antigen bundle bazel
-antigen bundle command-not-found
-antigen bundle sdk
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-syntax-highlighting
-if command -v direnv >/dev/null 2>&1; then
-  antigen bundle direnv
-fi
-
-# nvm is slow, lazily load on first use.
-zstyle ':omz:plugins:nvm' lazy yes
-zstyle ':omz:plugins:nvm' lazy-cmd eslint prettier typescript nvim vim
-antigen bundle nvm
-
-antigen apply
+# Always load oh-my-zsh configuration.
+source ~/.config/zsh/oh-my-zsh.zsh
 
 # Source bash aliases if exists.
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-# Ignore history for commands doing file navigation in lieu of autocomplete.
-# Filesystem suggestions are more relevant.
-# export ZSH_AUTOSUGGEST_HISTORY_IGNORE="(cd|ls|ll) *"
-
-# Default to history then autocomplete if not in the history.
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# Enable vi mode (again for some reason) and
-# accept suggestions with ctrl-y to match nvim.
-# Must be in this order to work properly.
-bindkey -v
-bindkey '^y' autosuggest-accept
-
-# zsh-history-substring-search configuration
-bindkey '^p' history-substring-search-up
-bindkey '^n' history-substring-search-down
-export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
-export HISTORY_SUBSTRING_SEARCH_FUZZY=1
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=standout,underline
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=standout
 
 # Turn off all beeps
 unsetopt BEEP

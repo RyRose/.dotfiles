@@ -89,12 +89,13 @@
     direnv # Environment variable manager.
     fd # Find tool.
     git # Version control system.
+    google-cloud-sdk # gcloud
     glow # Markdown viewer.
     jq # JSON processor.
     ripgrep # Search tool.
+    sd # Streamlined alternative to sed.
     starship # Terminal prompt.
     stow # Symlink manager for dotfiles.
-    tmux
     unzip # Unzip files.
     wget # Download tool.
     zoxide # Smart cd command.

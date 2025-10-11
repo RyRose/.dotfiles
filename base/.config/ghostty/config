@@ -1,5 +1,4 @@
 background-opacity = .99
-command = ~/.config/ghostty/command.sh
 font-size = 15
 keybind = ctrl+space>shift+o=reload_config
 theme = catppuccin-frappe

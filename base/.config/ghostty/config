@@ -1,5 +1,7 @@
-background-opacity = .99
-font-size = 15
+font-size = 18
 keybind = ctrl+space>shift+o=reload_config
 theme = catppuccin-frappe
 window-decoration = false
+# Set top padding to ensure tmux bar is clamped to bottom.
+window-padding-y = 7,0
+quit-after-last-window-closed = true

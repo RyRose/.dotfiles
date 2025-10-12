@@ -73,6 +73,8 @@ preexec_functions+=(set_preexec_win_title)
 # Initialize home-manager session variables if available.
 [ -f /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh ] && source /etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# TODO: Consider exploring zellij again.
+# command -v zellij &>/dev/null && ZELLIJ_AUTO_ATTACH=true ZELLIJ_AUTO_EXIT=true eval "$(zellij setup --generate-auto-start zsh)"

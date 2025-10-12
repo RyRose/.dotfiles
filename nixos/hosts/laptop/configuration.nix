@@ -98,6 +98,7 @@
     stow # Symlink manager for dotfiles.
     unzip # Unzip files.
     wget # Download tool.
+    zellij # Terminal workspace.
     zoxide # Smart cd command.
   ];
 

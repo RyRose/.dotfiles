@@ -42,7 +42,7 @@ git clone https://github.com/RyRose/.dotfiles.git ~/.dotfiles
 1. `stow` the base and either home/nas/some other configuration. For nixos, run
    `nix develop` (alternatively `nix-shell`) to make `stow` available along with
    any other dependencies.
-1. For write access to this repo, run `./utils/gen_github_key.sh` to update the
+1. For write access to this repo, run `./utils/update_remote_to_ssh.sh` to update the
    git url to ssh and run `./utils/gen_github_key.sh` to generate an SSH key for
    github. Add this key here: <https://github.com/settings/keys>
 1. For bootstrapping nixos, run `reload_nixos` to use the environment-specific

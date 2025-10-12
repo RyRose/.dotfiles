@@ -23,7 +23,6 @@ done
 ZSH_THEME="robbyrussell"
 
 plugins=(
-	bazel
 	command-not-found
 	sdk
 	nvm

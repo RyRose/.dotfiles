@@ -5,3 +5,6 @@
 
 # Ignore tmux plugins. They are defined and installed from .tmux.conf.
 base/.tmux/plugins
+
+# Ignore direnv environment files.
+.direnv/

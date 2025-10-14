@@ -1,3 +1,6 @@
+# Use vi mode for zsh. Must to be at top to make sure everything assumes vi mode.
+bindkey -v
+
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH}/custom}
 
@@ -26,6 +29,7 @@ plugins=(
 	command-not-found
 	sdk
 	nvm
+	screen
 	tmux
 	zsh-autosuggestions
 	zsh-completions

@@ -1,4 +1,5 @@
 font-size = 18
+keybind = ctrl+space>shift+o=reload_config
 theme = catppuccin-frappe
 window-decoration = false
 # Set top padding to ensure tmux bar is clamped to bottom.

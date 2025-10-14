@@ -88,9 +88,10 @@
     delta # Git diff tool.
     direnv # Environment variable manager.
     fd # Find tool.
+    fzf # Fuzzy finder.
     git # Version control system.
-    google-cloud-sdk # gcloud
     glow # Markdown viewer.
+    google-cloud-sdk # gcloud
     jq # JSON processor.
     ripgrep # Search tool.
     sd # Streamlined alternative to sed.

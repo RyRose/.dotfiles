@@ -17,3 +17,4 @@ alias ls='ls --color=auto'
 alias python=python3
 alias sl='ls'
 alias vim='nvim'
+alias stow='stow --no-folding'

@@ -3,8 +3,5 @@
 # This isn't necessary for git but telescope.nvim uses .gitignore to filter files.
 .git
 
-# Ignore tmux plugins. They are defined and installed from .tmux.conf.
-base/.tmux/plugins
-
 # Ignore direnv environment files.
 .direnv/

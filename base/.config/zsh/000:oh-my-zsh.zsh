@@ -45,8 +45,8 @@ plugins=(
 	command-not-found
 	zsh-autosuggestions
 	zsh-completions
-	zsh-history-substring-search
 	zsh-syntax-highlighting
+	zsh-history-substring-search
 	zsh-vi-mode
 )
 if command -v direnv >/dev/null 2>&1; then

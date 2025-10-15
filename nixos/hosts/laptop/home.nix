@@ -7,6 +7,13 @@
 
   my.neovim.enable = true;
 
+  programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ryan";

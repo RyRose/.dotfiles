@@ -4,23 +4,24 @@ export ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH}/custom}
 # Install Oh My Zsh if not already installed.
 [ ! -d ~/.oh-my-zsh ] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-# Install custom zsh plugins if not already installed and update if older than 24 hours.
-custom_plugins=(
-	"fzf-tab https://github.com/Aloxaf/fzf-tab"
-	"zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions"
-	"zsh-completions https://github.com/zsh-users/zsh-completions"
-	"zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search"
-	"zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting"
-	"zsh-vi-mode https://github.com/jeffreytse/zsh-vi-mode"
+# Install custom zsh repos if not already installed and update if older than 24 hours.
+custom_repos=(
+	"plugins/fzf-tab https://github.com/Aloxaf/fzf-tab"
+	"plugins/zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions"
+	"plugins/zsh-completions https://github.com/zsh-users/zsh-completions"
+	"plugins/zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search"
+	"plugins/zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting"
+	"plugins/zsh-vi-mode https://github.com/jeffreytse/zsh-vi-mode"
+	"themes/powerlevel10k https://github.com/romkatv/powerlevel10k.git"
 )
 update_interval=$((24 * 60 * 60)) # 24 hours
-for entry in "${custom_plugins[@]}"; do
-	read -r plugin repo <<<"$entry"
-	dir="${ZSH_CUSTOM}/plugins/${plugin}"
+for entry in "${custom_repos[@]}"; do
+	read -r directory repo <<<"$entry"
+	dir="${ZSH_CUSTOM}/${directory}"
 	timestamp_file="${dir}/.last_update"
 
 	if [ ! -d "$dir" ]; then
-		echo "Cloning $plugin..."
+		echo "Cloning oh-my-zsh $directory..."
 		git clone "$repo" "$dir"
 		date +%s >"$timestamp_file"
 	else
@@ -39,7 +40,8 @@ for entry in "${custom_plugins[@]}"; do
 	fi
 done
 
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
 	command-not-found

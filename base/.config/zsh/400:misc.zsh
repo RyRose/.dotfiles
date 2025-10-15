@@ -11,7 +11,7 @@ unsetopt LIST_BEEP
 setopt globdots
 
 # Enable starship prompt
-command -v starship &>/dev/null && eval "$(starship init zsh)"
+# command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
 command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)

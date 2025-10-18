@@ -4,39 +4,22 @@ export ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH}/custom}
 # Install Oh My Zsh if not already installed.
 [ ! -d ~/.oh-my-zsh ] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-# Install custom zsh repos if not already installed and update if older than 24 hours.
+# Install custom zsh repos if not already installed.
 custom_repos=(
-	"plugins/fzf-tab https://github.com/Aloxaf/fzf-tab"
-	"plugins/zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions"
-	"plugins/zsh-completions https://github.com/zsh-users/zsh-completions"
+	"plugins/fzf-tab                      https://github.com/Aloxaf/fzf-tab"
+	"plugins/zsh-autosuggestions          https://github.com/zsh-users/zsh-autosuggestions"
+	"plugins/zsh-completions              https://github.com/zsh-users/zsh-completions"
 	"plugins/zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search"
-	"plugins/zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting"
-	"plugins/zsh-vi-mode https://github.com/jeffreytse/zsh-vi-mode"
-	"themes/powerlevel10k https://github.com/romkatv/powerlevel10k.git"
+	"plugins/zsh-syntax-highlighting      https://github.com/zsh-users/zsh-syntax-highlighting"
+	"plugins/zsh-vi-mode                  https://github.com/jeffreytse/zsh-vi-mode"
+	"themes/powerlevel10k                 https://github.com/romkatv/powerlevel10k.git"
 )
-update_interval=$((24 * 60 * 60)) # 24 hours
 for entry in "${custom_repos[@]}"; do
 	read -r directory repo <<<"$entry"
 	dir="${ZSH_CUSTOM}/${directory}"
-	timestamp_file="${dir}/.last_update"
-
 	if [ ! -d "$dir" ]; then
 		echo "Cloning oh-my-zsh $directory..."
 		git clone "$repo" "$dir"
-		date +%s >"$timestamp_file"
-	else
-		now=$(date +%s)
-		last_update=0
-		[ -f "$timestamp_file" ] && last_update=$(<"$timestamp_file")
-		elapsed=$((now - last_update))
-
-		if [ "$elapsed" -ge "$update_interval" ]; then
-			echo "Updating $plugin..."
-			(
-				cd "$dir" && git pull --ff-only
-			)
-			date +%s >"$timestamp_file"
-		fi
 	fi
 done
 

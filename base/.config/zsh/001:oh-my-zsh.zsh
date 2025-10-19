@@ -7,6 +7,8 @@ export ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH}/custom}
 # Install custom zsh repos if not already installed.
 custom_repos=(
 	"plugins/fzf-tab                      https://github.com/Aloxaf/fzf-tab"
+	"plugins/nix-shell                    https://github.com/chisui/zsh-nix-shell.git"
+	"plugins/nix-zsh-completions          https://github.com/nix-community/nix-zsh-completions.git"
 	"plugins/zsh-autosuggestions          https://github.com/zsh-users/zsh-autosuggestions"
 	"plugins/zsh-completions              https://github.com/zsh-users/zsh-completions"
 	"plugins/zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search"
@@ -18,8 +20,7 @@ for entry in "${custom_repos[@]}"; do
 	read -r directory repo <<<"$entry"
 	dir="${ZSH_CUSTOM}/${directory}"
 	if [ ! -d "$dir" ]; then
-		echo "Cloning oh-my-zsh $directory..."
-		git clone "$repo" "$dir"
+		git clone "$repo" "$dir" &>/dev/null
 	fi
 done
 
@@ -28,10 +29,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
 	command-not-found
+	nix-shell
+	nix-zsh-completions
 	zsh-autosuggestions
 	zsh-completions
-	zsh-syntax-highlighting
 	zsh-history-substring-search
+	zsh-syntax-highlighting
 	zsh-vi-mode
 )
 if command -v direnv >/dev/null 2>&1; then

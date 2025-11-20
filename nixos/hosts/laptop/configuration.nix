@@ -33,11 +33,13 @@
     ];
     brews = [
       "docker"
+      "node"
     ];
     casks = [
       "aerospace"
       "betterdisplay"
       "bitwarden"
+      "crossover"
       "docker-desktop"
       "firefox"
       "font-jetbrains-mono-nerd-font"

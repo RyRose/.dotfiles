@@ -14,8 +14,15 @@ return {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
+    close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+    enable_git_status = true,
+    enable_diagnostics = true,
+
     filesystem = {
       follow_current_file = { enabled = true },
+      filtered_items = {
+        visible = true, -- when true, they will just be displayed differently than normal items
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',

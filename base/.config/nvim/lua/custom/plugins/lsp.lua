@@ -1,5 +1,22 @@
+-- LSP Types
+
+---@class NixFlake
+---@field autoArchive boolean|nil
+---@field autoEvalInputs boolean
+---@field nixpkgsInputName string|nil
+
+---@class NixSettings
+---@field binary string
+---@field maxMemoryMB number|nil
+---@field flake NixFlake
+
+---@class NilConfig
+---@field formatting { command: string[]|nil }
+---@field diagnostics { ignored: string[], excludedFiles: string[] }
+---@field nix NixSettings
+
+-- LSP Plugins
 return {
-  -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
@@ -189,6 +206,7 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      ---@type table<string, vim.lsp.Config>
       local servers = {
         clangd = {},
         bzl = {},
@@ -204,7 +222,22 @@ return {
         tailwindcss = {},
         ansiblels = {},
         zls = {},
-        nil_ls = {},
+        nil_ls = {
+          settings = {
+            ---@type NilConfig
+            ['nil'] = {
+              formatting = {},
+              diagnostics = {},
+              nix = {
+                binary = 'nix',
+                flake = {
+                  autoArchive = true,
+                  autoEvalInputs = false,
+                },
+              },
+            },
+          },
+        },
         -- sqlls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -221,6 +254,15 @@ return {
           -- capabilities = {},
           settings = {
             Lua = {
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  '${3rd}/busted/library',
+                  '${3rd}/luassert/library',
+                },
+              },
+
               completion = {
                 callSnippet = 'Replace',
               },

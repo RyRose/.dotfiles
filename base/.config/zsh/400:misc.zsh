@@ -21,3 +21,6 @@ command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
 # Use neovim as man pager.
 export MANPAGER='nvim +Man!'
+
+# Add Homebrew to PATH for Apple Silicon Macs
+export PATH="$PATH:/opt/homebrew/bin"

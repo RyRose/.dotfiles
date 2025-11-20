@@ -53,6 +53,10 @@
         {
           nixpkgs.overlays = [
             (final: prev: {
+              unfree = import nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+              };
               unstable = import nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;

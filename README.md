@@ -3,23 +3,23 @@
 These are my personal dotfiles. To use, install
 [GNU Stow](https://www.gnu.org/software/stow) and clone this repository to the
 home directory. Then, with this repo as your current working directory, use
-`stow` for any of the following directories. I use `--no-folding` to avoid directory symlinking,
-which can have problems when other tools store data in symlinked directories.
+`stow` for any of the following directories.
 
 ## dotfiles
 
 ### `base`
 
 ```console
-stow --no-folding base
+stow --no-folding basedirs
+stow base
 ```
 
-Base configuration for all environments.
+Base configuration for all environments. `basedirs` pre-creates common directories to avoid unintentional tracking of dotfiles.
 
 ### `home`
 
 ```console
-stow --no-folding home
+stow home
 ```
 
 Configuration for home desktop.
@@ -27,7 +27,7 @@ Configuration for home desktop.
 ### `nas`
 
 ```console
-stow --no-folding nas
+stow nas
 ```
 
 Configuration for Synology NAS.

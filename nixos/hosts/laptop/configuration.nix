@@ -87,6 +87,7 @@
 
   environment.systemPackages = with pkgs; [
     btop # Resource monitor (alternative to htop).
+    chezmoi # Dotfile manager.
     delta # Git diff tool.
     direnv # Environment variable manager.
     fd # Find tool.
@@ -101,6 +102,7 @@
     stow # Symlink manager for dotfiles.
     unzip # Unzip files.
     wget # Download tool.
+    yadm # Dotfile manager.
     zellij # Terminal workspace.
     zoxide # Smart cd command.
   ];

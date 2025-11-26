@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if command -v darwin-rebuild >/dev/null 2>&1; then
+	sudo darwin-rebuild switch --flake "${HOME}/.dotfiles/nixos#laptop" $@
+elif command -v nixos-rebuild >/dev/null 2>&1; then
+	sudo nixos-rebuild switch --flake "${HOME}/.dotfiles/nixos#desktop" $@
+else
+	echo "Error: Neither darwin-rebuild nor nixos-rebuild found." >&2
+	exit 1
+fi

@@ -5,34 +5,7 @@ These are my personal dotfiles. To use, install
 home directory. Then, with this repo as your current working directory, use
 `stow` for any of the following directories.
 
-## dotfiles
-
-### `base`
-
-```console
-stow --no-folding basedirs
-stow base
-```
-
-Base configuration for all environments. `basedirs` pre-creates common directories to avoid unintentional tracking of dotfiles.
-
-### `home`
-
-```console
-stow home
-```
-
-Configuration for home desktop.
-
-### `nas`
-
-```console
-stow nas
-```
-
-Configuration for Synology NAS.
-
-## bootstrap steps
+## Setup
 
 1. Clone the repository. If using nix, run `nix-shell -p git` to grab Git.
 
@@ -40,7 +13,7 @@ Configuration for Synology NAS.
 git clone https://github.com/RyRose/.dotfiles.git ~/.dotfiles
 ```
 
-1. `stow` the base and either home/nas/some other configuration. For nixos, run
+1. Run `make ${ENV}` where `ENV` is one of laptop/home/nas. For nixos, run
    `nix develop` (alternatively `nix-shell`) to make `stow` available along with
    any other dependencies.
 1. For write access to this repo, run `./utils/update_remote_to_ssh.sh` to update the
@@ -48,3 +21,37 @@ git clone https://github.com/RyRose/.dotfiles.git ~/.dotfiles
    github. Add this key here: <https://github.com/settings/keys>
 1. For bootstrapping nixos, run `reload_nixos` to use the environment-specific
    script to reload nix at ~/.local/bin/reload_nixos.
+
+## Environments
+
+### `base`
+
+```console
+make base
+```
+
+Base configuration for all environments.
+
+### `home`
+
+```console
+make home
+```
+
+Configuration for home desktop.
+
+### `nas`
+
+```console
+make nas
+```
+
+Configuration for NAS.
+
+### `laptop`
+
+```console
+make laptop
+```
+
+Configuration for laptop.

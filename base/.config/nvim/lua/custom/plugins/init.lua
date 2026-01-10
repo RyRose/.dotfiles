@@ -20,6 +20,13 @@ vim.g.format_lsp_modified_on_save = function()
   return vim.b.format_lsp_modified_on_save
 end
 
+vim.filetype.add {
+  extension = {
+    -- Key is the extension, value is the filetype name
+    ['in'] = 'in',
+  },
+}
+
 return {
   'tpope/vim-abolish',
 }

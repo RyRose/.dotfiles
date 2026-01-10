@@ -15,6 +15,78 @@
 ---@field diagnostics { ignored: string[], excludedFiles: string[] }
 ---@field nix NixSettings
 
+--  Add any additional override configuration in the following tables. Available keys are:
+--  - cmd (table): Override the default command used to start the server
+--  - filetypes (table): Override the default list of associated filetypes for the server
+--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+--  - settings (table): Override the default settings passed when initializing the server.
+--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+---@type table<string, vim.lsp.Config>
+local servers = {
+  clangd = {},
+  bzl = {},
+  yamlls = {},
+  taplo = {},
+  gopls = {},
+  pyright = {},
+  html = {},
+  angularls = {},
+  templ = {},
+  htmx = {},
+  tailwindcss = {},
+  ansiblels = {},
+  zls = {},
+  nil_ls = {
+    settings = {
+      ---@type NilConfig
+      ['nil'] = {
+        formatting = {},
+        diagnostics = {},
+        nix = {
+          binary = 'nix',
+          flake = {
+            autoArchive = true,
+            autoEvalInputs = false,
+          },
+        },
+      },
+    },
+  },
+  -- sqlls = {},
+  -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+  --
+  -- Some languages (like typescript) have entire language plugins that can be useful:
+  --    https://github.com/pmizio/typescript-tools.nvim
+  --
+  -- But for many setups, the LSP (`ts_ls`) will work just fine
+  -- ts_ls = {},
+  --
+
+  lua_ls = {
+    -- cmd = {...},
+    -- filetypes = { ...},
+    -- capabilities = {},
+    settings = {
+      Lua = {
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+            '${3rd}/busted/library',
+            '${3rd}/luassert/library',
+          },
+        },
+
+        completion = {
+          callSnippet = 'Replace',
+        },
+        -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        -- diagnostics = { disable = { 'missing-fields' } },
+      },
+    },
+  },
+}
+
 -- LSP Plugins
 return {
   {
@@ -39,7 +111,6 @@ return {
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
         opts = {
@@ -198,79 +269,6 @@ return {
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
-      }
-
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      ---@type table<string, vim.lsp.Config>
-      local servers = {
-        clangd = {},
-        bzl = {},
-        yamlls = {},
-        taplo = {},
-        rust_analyzer = {},
-        gopls = {},
-        pyright = {},
-        html = {},
-        angularls = {},
-        templ = {},
-        htmx = {},
-        tailwindcss = {},
-        ansiblels = {},
-        zls = {},
-        nil_ls = {
-          settings = {
-            ---@type NilConfig
-            ['nil'] = {
-              formatting = {},
-              diagnostics = {},
-              nix = {
-                binary = 'nix',
-                flake = {
-                  autoArchive = true,
-                  autoEvalInputs = false,
-                },
-              },
-            },
-          },
-        },
-        -- sqlls = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
-
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  vim.env.VIMRUNTIME,
-                  '${3rd}/busted/library',
-                  '${3rd}/luassert/library',
-                },
-              },
-
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
       }
 
       -- Ensure the servers and tools above are installed

@@ -18,9 +18,9 @@
 
     programs.neovim.defaultEditor = true;
     programs.neovim.enable = true;
-    # nvim 0.11 is not yet in stable.
-    # programs.neovim.package = pkgs.unstable.neovim-unwrapped;
     programs.neovim.extraPackages = with pkgs; [
+      ansible
+      ansible-lint
       cargo # rust package manager
       codespell
       coursier # Scala package manager
@@ -28,7 +28,9 @@
       gcc # GNU Compiler Collection
       gnumake # GNU make
       go # Go programming language
+      haskell-language-server # Haskell language server
       jdk # Java Development Kit
+      just # Command runner (for formatting justfiles)
       ktlint # Kotlin linter
       lua # Lua programming language
       luajitPackages.lua-lsp # Lua language server

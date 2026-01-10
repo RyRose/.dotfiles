@@ -1,59 +1,18 @@
 {
   self,
-  pkgs,
   inputs,
-  config,
   ...
 }:
 {
 
   imports = [
     inputs.home-manager.darwinModules.default
+    ./homebrew.nix
+    ./packages.nix
   ];
 
   # Disable nix management for determinate nix compatibility.
   nix.enable = false;
-
-  # Needed for homebrew:
-  # You currently have the following primary‐user‐requiring options set:
-  # * `homebrew.enable`
-  # To continue using these options, set `system.primaryUser` to the name
-  # of the user you have been using to run `darwin-rebuild`. In the long
-  # run, this setting will be deprecated and removed after all the
-  # functionality it is relevant for has been adjusted to allow
-  # specifying the relevant user separately, moved under the
-  # `users.users.*` namespace, or migrated to Home Manager.
-  system.primaryUser = "ryan";
-  homebrew = {
-    enable = true;
-    onActivation.cleanup = "uninstall";
-    taps = [
-      "nikitabobko/tap"
-      "th-ch/youtube-music"
-    ];
-    brews = [
-      "docker"
-      "node"
-    ];
-    casks = [
-      "aerospace"
-      "betterdisplay"
-      "bitwarden"
-      "crossover"
-      "docker-desktop"
-      "firefox"
-      "font-jetbrains-mono-nerd-font"
-      "ghostty"
-      "google-chrome"
-      "intellij-idea-ce"
-      "obsidian"
-      "plex"
-      "rectangle"
-      "steam"
-      "tailscale-app"
-      "youtube-music"
-    ];
-  };
 
   # Enable sudo with touch ID.
   security.pam.services.sudo_local.touchIdAuth = true;
@@ -84,28 +43,6 @@
     extraSpecialArgs = { inherit inputs; };
     users.ryan = import ./home.nix;
   };
-
-  environment.systemPackages = with pkgs; [
-    btop # Resource monitor (alternative to htop).
-    chezmoi # Dotfile manager.
-    delta # Git diff tool.
-    direnv # Environment variable manager.
-    fd # Find tool.
-    fzf # Fuzzy finder.
-    git # Version control system.
-    glow # Markdown viewer.
-    google-cloud-sdk # gcloud
-    jq # JSON processor.
-    ripgrep # Search tool.
-    sd # Streamlined alternative to sed.
-    starship # Terminal prompt.
-    stow # Symlink manager for dotfiles.
-    unzip # Unzip files.
-    wget # Download tool.
-    yadm # Dotfile manager.
-    zellij # Terminal workspace.
-    zoxide # Smart cd command.
-  ];
 
   programs.tmux.enable = true;
 

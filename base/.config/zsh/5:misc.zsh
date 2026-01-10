@@ -24,3 +24,12 @@ export MANPAGER='nvim +Man!'
 
 # Add Homebrew to PATH for Apple Silicon Macs
 export PATH="$PATH:/opt/homebrew/bin"
+
+# Add ghcup (Haskell toolchain manager) to PATH
+export PATH="$PATH:$HOME/.ghcup/bin"
+
+# Add cargo (Rust toolchain manager) to PATH
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# Set SOPS Age key file location.
+export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"

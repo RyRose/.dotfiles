@@ -39,12 +39,18 @@ return {
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- Disable formatting for certain filetypes altogether.
+        local disable_filetypes = { ['in'] = true }
+        if disable_filetypes[vim.bo[bufnr].filetype] then
+          return
+        end
+
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true }
+        local disable_lsp_filetypes = { c = true }
         local lsp_format_opt
-        if disable_filetypes[vim.bo[bufnr].filetype] then
+        if disable_lsp_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
         else
           lsp_format_opt = 'fallback'
@@ -81,6 +87,7 @@ return {
         sql = { 'sqlfluff' },
         nix = { 'nixfmt' },
         kotlin = { 'ktlint' },
+        just = { 'just' },
         ['*'] = { 'trim_whitespace' },
       },
     },

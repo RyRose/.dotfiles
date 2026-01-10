@@ -53,6 +53,13 @@
         {
           nixpkgs.overlays = [
             (final: prev: {
+
+              # Add python312Packages.rpds-py to the dependencies to address
+              # bug in ansible-lint: https://github.com/NixOS/nixpkgs/issues/342098
+              ansible-lint = prev.ansible-lint.overridePythonAttrs (oldAttrs: {
+                makeWrapperArgs = oldAttrs.makeWrapperArgs or [ ] ++ [ "--set PYTHONPATH ''" ];
+              });
+
               unfree = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
@@ -61,6 +68,7 @@
                 inherit system;
                 config.allowUnfree = true;
               };
+
               master = import nixpkgs-master {
                 inherit system;
                 config.allowUnfree = true;
@@ -68,7 +76,6 @@
             })
           ];
         };
-      overlay-nixpkgs-x86_64-darwin = overlay-nixpkgs "x86_64-darwin";
       overlay-nixpkgs-aarch64-darwin = overlay-nixpkgs "aarch64-darwin";
       overlay-nixpkgs-x86_64-linux = overlay-nixpkgs "x86_64-linux";
     in

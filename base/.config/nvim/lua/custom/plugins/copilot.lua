@@ -1,3 +1,7 @@
+-- Uncomment to use ollama proxy for offline copilot.
+-- vim.g.copilot_proxy = 'http://localhost:11435'
+-- vim.g.copilot_proxy_strict_ssl = false
+
 return {
   {
     'zbirenbaum/copilot.lua',
@@ -34,6 +38,8 @@ return {
       vim.keymap.set('n', '<leader>cc', function()
         require('CopilotChat').toggle()
       end, { desc = 'Toggle Copilot Chat' })
+
+      vim.keymap.set('n', '<leader>cf', '<CMD>CopilotChatFix<CR>', { desc = 'Copilot Fix' })
     end,
   },
 }

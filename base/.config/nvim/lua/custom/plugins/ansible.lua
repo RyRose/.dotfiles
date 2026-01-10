@@ -1,12 +1,10 @@
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = {
     -- Common Ansible file patterns
-    '*/playbooks/*.yaml',
-    '*/playbooks/*.yml',
-    '*playbook*.yaml',
-    '*playbook*.yml',
     '*.ansible.yaml',
     '*.ansible.yml',
+    '*/roles/*/tasks/*.yml',
+    '*/roles/*/defaults/*.yml',
   },
   callback = function()
     vim.bo.filetype = 'yaml.ansible'

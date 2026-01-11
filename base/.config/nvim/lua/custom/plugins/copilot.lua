@@ -1,7 +1,3 @@
--- Uncomment to use ollama proxy for offline copilot.
--- vim.g.copilot_proxy = 'http://localhost:11435'
--- vim.g.copilot_proxy_strict_ssl = false
-
 return {
   {
     'zbirenbaum/copilot.lua',

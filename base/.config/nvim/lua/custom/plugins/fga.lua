@@ -1,3 +1,5 @@
+-- Configuration for openFGA lsp and Treesitter grammar.
+
 return {
   'RyRose/fga.nvim',
   dependencies = {

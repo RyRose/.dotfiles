@@ -1,6 +1,3 @@
-# Source bash aliases if exists.
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
 # Initialize opam if available
 [ -f ~/.opam/opam-init/init.zsh ] && source ~/.opam/opam-init/init.zsh
 

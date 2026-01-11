@@ -2,7 +2,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH}/custom}
 
 # Install Oh My Zsh if not already installed.
-[ ! -d ~/.oh-my-zsh ] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+[ ! -d ~/.oh-my-zsh ] &&
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
 # Install custom zsh repos if not already installed.
 custom_repos=(

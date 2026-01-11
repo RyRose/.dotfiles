@@ -19,9 +19,6 @@ command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
 # Set up zoxide for directory navigation
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
-# Use neovim as man pager.
-export MANPAGER='nvim +Man!'
-
 # Add Homebrew to PATH for Apple Silicon Macs
 export PATH="$PATH:/opt/homebrew/bin"
 
@@ -33,3 +30,20 @@ export PATH="$PATH:$HOME/.ghcup/bin"
 
 # Set SOPS Age key file location.
 export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+
+# Use less instead of more.
+export PAGER="less"
+
+# Use en_US.UTF-8 as the default locale.
+export LANG=en_US.UTF-8
+
+# Disable beep in less binary.
+export LESS="${LESS:-} -R -Q"
+
+# Aliases.
+alias ..='cd ..'
+alias ll='ls -la'
+alias ls='ls --color=auto'
+alias python=python3
+alias sl='ls'
+alias vim='nvim'

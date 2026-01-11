@@ -5,3 +5,6 @@
 
 # Ignore direnv environment files.
 .direnv/
+
+# Ignore nvim before.lua, which is environment-specific configuration.
+base/.config/nvim/lua/custom/before.lua

@@ -1,4 +1,4 @@
-function extendIf(cond, t1, t2)
+local function extendIf(cond, t1, t2)
   if cond then
     return vim.tbl_extend('keep', t1, t2)
   else
@@ -6,7 +6,7 @@ function extendIf(cond, t1, t2)
   end
 end
 
-function insertIf(cond, t1, t2)
+local function insertIf(cond, t1, t2)
   if cond then
     return table.insert(t1, t2)
   else

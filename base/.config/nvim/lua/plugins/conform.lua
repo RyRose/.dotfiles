@@ -87,6 +87,7 @@ return { -- Autoformat
       nix = { 'nixfmt' },
       kotlin = { 'ktlint' },
       just = { 'just' },
+      zig = { 'zigfmt' },
       ['*'] = { 'trim_whitespace' },
     },
   },

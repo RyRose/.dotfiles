@@ -6,7 +6,6 @@ help:
 	@echo "  make clean    - Remove all configurations"
 	@echo "  make laptop   - Apply laptop-specific configuration"
 	@echo "  make home     - Apply home-specific configuration"
-	@echo "  make nas      - Apply NAS-specific configuration"
 
 .PHONY: clean
 clean:
@@ -14,7 +13,6 @@ clean:
 	stow --delete basedirs
 	stow --delete home
 	stow --delete laptop
-	stow --delete nas
 
 .PHONY: base
 base: clean
@@ -29,7 +27,3 @@ laptop: base
 .PHONY: home
 home: base
 	stow --restow home
-
-.PHONY: nas
-nas: base
-	stow --restow nas

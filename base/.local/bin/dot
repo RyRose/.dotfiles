@@ -1,0 +1,34 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#     "typer",
+# ]
+# ///
+# vim: set ft=python
+
+import subprocess
+from typing import Annotated
+import typer
+import os
+from pathlib import Path
+
+app = typer.Typer()
+
+
+@app.command()
+def make(target: Annotated[str, typer.Argument()] = ""):
+    os.chdir(Path.home() / ".dotfiles")
+    if target:
+        subprocess.run(["make", target])
+    else:
+        subprocess.run(["make"])
+
+
+@app.command()
+def edit():
+    os.chdir(Path.home() / ".dotfiles")
+    subprocess.run(["nvim"])
+
+
+if __name__ == "__main__":
+    app()

@@ -19,6 +19,9 @@ command -v fzf &>/dev/null && fzf --zsh &>/dev/null && source <(fzf --zsh)
 # Set up zoxide for directory navigation
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
+# Set up dotfiles cli tool completion.
+command -v dot &>/dev/null && eval "$(dot --show-completion)"
+
 # Add Homebrew to PATH for Apple Silicon Macs
 export PATH="$PATH:/opt/homebrew/bin"
 

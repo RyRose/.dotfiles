@@ -11,7 +11,25 @@ import typer
 import os
 from pathlib import Path
 
-app = typer.Typer(no_args_is_help=True)
+app = typer.Typer(help="Manage dotfiles.", no_args_is_help=True)
+
+nix = typer.Typer(help="Nix related commands.", no_args_is_help=True)
+app.add_typer(nix, name="nix")
+
+
+@nix.command(help="Reload NixOS configuration.")
+def reload():
+    subprocess.run("reload_nixos")
+
+
+@nix.command(help="Update NixOS system.")
+def update():
+    subprocess.run("update_nixos")
+
+
+@nix.command(help="Rollback NixOS system.")
+def rollback():
+    subprocess.run("rollback_nixos")
 
 
 @app.command(help="Run make in the dotfiles directory on a target.")

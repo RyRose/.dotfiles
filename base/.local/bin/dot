@@ -5,11 +5,12 @@
 # ]
 # ///
 
-import subprocess
-from typing import Annotated
-import typer
-import os
 from pathlib import Path
+from typing import Annotated
+import os
+import shutil
+import subprocess
+import typer
 
 app = typer.Typer(help="Manage dotfiles.", no_args_is_help=True)
 
@@ -34,11 +35,11 @@ def rollback():
 
 @app.command(help="Run make in the dotfiles directory on a target.")
 def make(target: Annotated[str, typer.Argument()] = ""):
+    assert shutil.which("make"), "Make is not installed."
+    assert shutil.which("stow"), "Stow is not installed."
+
     os.chdir(Path.home() / ".dotfiles")
-    if target:
-        subprocess.run(["make", target])
-    else:
-        subprocess.run(["make"])
+    subprocess.run(["make", target])
 
 
 @app.command(help="Edit dotfiles in Neovim.")

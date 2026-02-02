@@ -8,3 +8,6 @@
 
 # Ignore "override" Lua files, which are used for user-specific configurations.
 override.lua
+
+# Ignore swap files created by text editors.
+*.swp

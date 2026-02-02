@@ -22,5 +22,6 @@
     unzip # Unzip files.
     wget # Download tool.
     zoxide # Smart cd command.
+    sox # Sound processing tool.
   ];
 }

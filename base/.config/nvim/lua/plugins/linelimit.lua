@@ -1,32 +1,38 @@
--- Show vertical lines at 100 characters
--- vim.opt.colorcolumn = '100'
+-- Set your line limit
+local line_limit = 80
 
--- Set your limit
-local limit = 100
+-- Function to toggle colorcolumn
+local function conditional_colorcolumn()
+  -- Get the range of visible lines (0-indexed)
+  local topline = vim.fn.line 'w0' - 1 -- first visible line
+  local botline = vim.fn.line 'w$' - 1 -- last visible line
 
--- Create a namespace for our highlight (avoids clobbering other matches)
-local ns = vim.api.nvim_create_namespace 'over_limit'
+  -- Get the lines in the visible range
+  local lines = vim.api.nvim_buf_get_lines(0, topline, botline + 1, false)
 
--- Function to update highlighting
-local function highlight_over_limit(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1) -- clear previous highlights
-
-  -- Get all lines in buffer
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  for i, line in ipairs(lines) do
-    if #line > limit then
-      -- Highlight only the text past the limit
-      vim.api.nvim_buf_add_highlight(bufnr, ns, 'ColorColumn', i - 1, limit, #line)
-    end
+  local exceeds = false
+  for _, line in ipairs(lines) do
+    local line_length = #line
+    exceeds = exceeds or (line_length > line_limit)
+  end
+  if exceeds then
+    vim.opt_local.colorcolumn = tostring(line_limit)
+  else
+    vim.opt_local.colorcolumn = ''
   end
 end
 
--- Setup autocmds to update highlight on changes
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'TextChanged', 'TextChangedI' }, {
-  callback = function(args)
-    highlight_over_limit(args.buf)
-  end,
+-- Autocmds to update on text changes
+local events = {
+  'InsertLeave',
+  'TextChanged',
+  'TextChangedI',
+  'BufEnter',
+  'WinScrolled',
+}
+vim.api.nvim_create_autocmd(events, {
+  pattern = '*',
+  callback = conditional_colorcolumn,
 })
 
 return {}

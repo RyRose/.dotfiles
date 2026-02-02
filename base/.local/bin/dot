@@ -48,5 +48,10 @@ def edit():
     subprocess.run(["nvim"])
 
 
+@app.command(help="Initialize dotfiles management.")
+def init():
+    pass
+
+
 if __name__ == "__main__":
     app()

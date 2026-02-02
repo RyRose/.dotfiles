@@ -14,6 +14,9 @@ local function conditional_colorcolumn()
   for _, line in ipairs(lines) do
     local line_length = #line
     exceeds = exceeds or (line_length > line_limit)
+    if exceeds then
+      break
+    end
   end
   if exceeds then
     vim.opt_local.colorcolumn = tostring(line_limit)

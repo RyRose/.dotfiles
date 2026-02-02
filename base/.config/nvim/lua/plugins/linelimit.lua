@@ -1,8 +1,18 @@
 -- Set your line limit
 local line_limit = 80
 
+local function is_source_file()
+  local bt = vim.bo.buftype -- buffer type
+  local ft = vim.bo.filetype -- filetype
+  return bt == '' and ft ~= ''
+end
+
 -- Function to toggle colorcolumn
 local function conditional_colorcolumn()
+  if not is_source_file() then
+    return
+  end
+
   -- Get the range of visible lines (0-indexed)
   local topline = vim.fn.line 'w0' - 1 -- first visible line
   local botline = vim.fn.line 'w$' - 1 -- last visible line
@@ -33,7 +43,11 @@ local events = {
   'BufEnter',
   'WinScrolled',
 }
+local source_augroup = vim.api.nvim_create_augroup('linelimit', {
+  clear = true,
+})
 vim.api.nvim_create_autocmd(events, {
+  group = source_augroup,
   pattern = '*',
   callback = conditional_colorcolumn,
 })

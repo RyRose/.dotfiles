@@ -30,6 +30,7 @@
       "bitwarden" # Password manager.
       "calibre" # E-book management software.
       "crossover" # Run Windows applications on macOS.
+      "discord" # Chat and communication platform.
       "docker-desktop" # Docker for Mac.
       "firefox" # Web browser.
       "font-jetbrains-mono-nerd-font" # Nerd Font for development.

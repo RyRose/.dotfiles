@@ -4,9 +4,16 @@ return {
   priority = 1000,
   init = function()
     require('catppuccin').setup {
-      transparent_background = true,
       integrations = {
+        gitsigns = true,
         fidget = true,
+        neotree = true,
+        cmp = true,
+        render_markdown = true,
+        telescope = {
+          enabled = true,
+        },
+        which_key = true,
       },
     }
     -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha

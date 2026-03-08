@@ -5,6 +5,14 @@ return {
   -- vim.g.mason_tools.
   event = 'VeryLazy',
   config = function()
+    -- Ensure the servers and tools above are installed
+    --  To check the current status of installed tools and/or manually install
+    --  other tools, you can run
+    --    :Mason
+    --
+    --  You can press `g?` for help in this menu.
+    require('mason').setup()
+
     local tools = {}
     for _, value in ipairs(vim.g.mason_tools) do
       if type(value) == 'table' and #value == 2 then

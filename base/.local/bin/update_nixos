@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -eu
-
-cd "${HOME}/.dotfiles/nixos" && nix flake update
-reload_nixos

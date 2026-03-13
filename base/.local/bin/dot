@@ -5,11 +5,13 @@
 # ]
 # ///
 
-from pathlib import Path
-from typing import Annotated
 import os
+import platform
 import shutil
 import subprocess
+from pathlib import Path
+from typing import Annotated
+
 import typer
 
 app = typer.Typer(help="Manage dotfiles.", no_args_is_help=True)
@@ -18,19 +20,36 @@ nix = typer.Typer(help="Nix related commands.", no_args_is_help=True)
 app.add_typer(nix, name="nix")
 
 
+def nix_rebuild():
+    match platform.system():
+        case "Linux":
+            return "nixos-rebuild"
+        case "Darwin":
+            return "darwin-rebuild"
+        case _:
+            raise NotImplementedError("Unsupported platform.")
+
+
 @nix.command(help="Reload NixOS configuration.")
-def reload():
-    subprocess.run("reload_nixos")
+def reload(target: str):
+    os.chdir(Path.home() / ".dotfiles")
+    subprocess.run(["sudo", nix_rebuild(), "switch", "--flake", f"./nixos#{target}"])
 
 
-@nix.command(help="Update NixOS system.")
+@nix.command(
+    help="Update NixOS flake. Run `dot nix update` to update the flake and then `dot nix reload` to apply the changes."
+)
 def update():
-    subprocess.run("update_nixos")
+    os.chdir(Path.home() / ".dotfiles")
+    subprocess.run(["nix", "flake", "update"])
 
 
 @nix.command(help="Rollback NixOS system.")
-def rollback():
-    subprocess.run("rollback_nixos")
+def rollback(target: str):
+    os.chdir(Path.home() / ".dotfiles")
+    subprocess.run(
+        ["sudo", nix_rebuild(), "switch", "--rollback", "--flake", f"./nixos#{target}"]
+    )
 
 
 @app.command(help="Run make in the dotfiles directory on a target.")
@@ -49,8 +68,9 @@ def edit():
 
 
 @app.command(help="Initialize dotfiles management.")
-def init():
-    pass
+def git(args: list[str]):
+    os.chdir(Path.home() / ".dotfiles")
+    subprocess.run(["git"] + args)
 
 
 if __name__ == "__main__":

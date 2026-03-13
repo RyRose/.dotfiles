@@ -40,7 +40,7 @@ def reload(target: str):
     help="Update NixOS flake. Run `dot nix update` to update the flake and then `dot nix reload` to apply the changes."
 )
 def update():
-    os.chdir(Path.home() / ".dotfiles")
+    os.chdir(Path.home() / ".dotfiles/nixos")
     subprocess.run(["nix", "flake", "update"])
 
 

@@ -16,6 +16,9 @@
 
   config = lib.mkIf config.my.neovim.enable {
 
+    # Use unstable neovim to get the latest features and bug fixes.
+    programs.neovim.package = pkgs.unstable.neovim-unwrapped;
+
     programs.neovim.defaultEditor = true;
     programs.neovim.enable = true;
     programs.neovim.extraPackages = with pkgs; [

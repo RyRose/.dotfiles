@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   'mrcjkb/haskell-tools.nvim',
   version = '^6', -- Recommended

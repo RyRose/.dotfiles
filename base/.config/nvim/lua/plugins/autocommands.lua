@@ -12,4 +12,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+---@type LazySpec
 return {}

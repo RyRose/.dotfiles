@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   'RyRose/templ-goto-definition',
   ft = { 'go' },

@@ -1,7 +1,11 @@
+---@type LazySpec
 return {
   {
     'zbirenbaum/copilot.lua',
     enabled = vim.g.enable_copilot,
+    dependencies = {
+      'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
+    },
     cmd = 'Copilot',
     event = 'InsertEnter',
     opts = {
@@ -14,11 +18,6 @@ return {
   },
   {
     'giuxtaposition/blink-cmp-copilot',
-    enabled = vim.g.enable_blink and vim.g.enable_copilot,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    enabled = not vim.g.enable_blink and vim.g.enable_copilot,
-    opts = {},
+    enabled = vim.g.enable_copilot,
   },
 }

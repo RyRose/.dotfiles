@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   'folke/sidekick.nvim',
   enabled = vim.g.enable_copilot,

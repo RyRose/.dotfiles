@@ -1,5 +1,6 @@
 -- Collection of various small independent plugins/modules
 
+---@type LazySpec
 return {
   'echasnovski/mini.nvim',
   config = function()

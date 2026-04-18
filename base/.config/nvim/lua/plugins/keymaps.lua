@@ -49,4 +49,5 @@ vim.keymap.set('n', 'Q', '<nop>')
 -- LSP Restart
 vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>', { desc = 'LSP Restart' })
 
+---@type LazySpec
 return {}

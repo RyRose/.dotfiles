@@ -1,4 +1,35 @@
-return { -- Autoformat
+-- Autoformat on save using Conform, which supports a wide variety of formatters and linters.
+--
+-- https://github.com/stevearc/conform.nvim#formatters
+
+---@type MasonToolEntry[]
+local mason_tools = {
+  'black',
+  'clang-format',
+  'goimports',
+  'isort',
+  'markdownlint',
+  'mdformat',
+  {
+    'nixfmt',
+    condition = function()
+      return vim.fn.executable 'nix' == 1
+    end,
+  },
+  'prettier',
+  'prettierd',
+  'shellcheck',
+  'shfmt',
+  'sqlfluff',
+  'stylua',
+  'taplo',
+  'templ',
+  'yamlfmt',
+  'ktlint',
+}
+
+---@type LazySpec
+return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
@@ -13,51 +44,17 @@ return { -- Autoformat
     },
   },
   init = function()
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
-    vim.g.mason_tools = vim.list_extend(vim.g.mason_tools, {
-      'black',
-      'clang-format',
-      'goimports',
-      'isort',
-      'markdownlint',
-      'mdformat',
-      -- 'nixfmt', -- Installed natively.
-      'prettier',
-      'prettierd',
-      'shellcheck',
-      'shfmt',
-      'sqlfluff',
-      'stylua',
-      'taplo',
-      'templ',
-      'yamlfmt',
-      'ktlint',
-    })
+    vim.list_extend(vim.g.mason_tools, mason_tools)
   end,
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
       -- Disable formatting for certain filetypes altogether.
       local disable_filetypes = { ['in'] = true }
-      if disable_filetypes[vim.bo[bufnr].filetype] then
-        return
-      end
-
-      -- Disable "format_on_save lsp_fallback" for languages that don't
-      -- have a well standardized coding style. You can add additional
-      -- languages here or re-enable it for the disabled ones.
-      local disable_lsp_filetypes = { c = true }
-      local lsp_format_opt
-      if disable_lsp_filetypes[vim.bo[bufnr].filetype] then
-        lsp_format_opt = 'never'
-      else
-        lsp_format_opt = 'fallback'
-      end
       return {
         timeout_ms = 2000,
-        lsp_format = lsp_format_opt,
-        dry_run = vim.g.format_lsp_modified_on_save(),
+        dry_run = disable_filetypes[vim.bo[bufnr].filetype],
+        lsp_format = 'fallback',
       }
     end,
     formatters = {

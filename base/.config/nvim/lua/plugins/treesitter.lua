@@ -1,5 +1,6 @@
 -- Highlight, edit, and navigate code
 
+---@type LazySpec
 return {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,

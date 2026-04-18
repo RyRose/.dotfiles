@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
@@ -14,7 +15,7 @@ return {
           enabled = true,
         },
         which_key = true,
-        blink_cmp = vim.g.enable_blink,
+        blink_cmp = true,
       },
     }
     -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha

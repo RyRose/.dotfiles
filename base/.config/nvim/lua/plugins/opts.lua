@@ -76,4 +76,5 @@ vim.opt.foldenable = true
 -- Disable linewrap. I prefer the line to not wrap.
 -- vim.opt.wrap = false
 
+---@type LazySpec
 return {}

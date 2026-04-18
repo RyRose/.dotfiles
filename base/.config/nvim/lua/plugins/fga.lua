@@ -1,5 +1,6 @@
 -- Configuration for openFGA lsp and Treesitter grammar.
 
+---@type LazySpec
 return {
   'RyRose/fga.nvim',
   dependencies = {

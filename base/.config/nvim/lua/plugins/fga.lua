@@ -8,6 +8,6 @@ return {
   },
   opts = {
     install_treesitter_grammar = true,
-    lsp_server = 'openfga-lsp',
+    lsp_cmd = { 'openfga-lsp', '--stdio' },
   },
 }

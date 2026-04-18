@@ -1,26 +1,10 @@
-local function extendIf(cond, t1, t2)
-  if cond then
-    return vim.tbl_extend('keep', t1, t2)
-  else
-    return t1
-  end
-end
-
-local function insertIf(cond, t1, t2)
-  if cond then
-    return table.insert(t1, t2)
-  else
-    return t1
-  end
-end
-
 return {
   'saghen/blink.cmp',
   enabled = vim.g.enable_blink,
   dependencies = {
     -- optional: provides snippets for the snippet source
     'rafamadriz/friendly-snippets',
-    { 'giuxtaposition/blink-cmp-copilot', enabled = vim.g.enable_copilot },
+    'giuxtaposition/blink-cmp-copilot',
     {
       'L3MON4D3/LuaSnip',
       version = '2.*',
@@ -68,7 +52,7 @@ return {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp
       -- will be removed in a future release
-      use_nvim_cmp_as_default = true,
+      --use_nvim_cmp_as_default = true,
       -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'mono',
@@ -77,38 +61,27 @@ return {
     -- default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, via `opts_extend`
     sources = {
-      -- TODO: Switch to this mechanism if on nightly.
-      default = insertIf(vim.g.enable_copilot, { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }, 'copilot'),
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
 
-      -- Copilot support.
-      providers = extendIf(vim.g.enable_copilot, {
+      providers = {
         lazydev = { name = 'lazydev', module = 'lazydev.integrations.blink', score_offset = 100 },
-      }, {
         copilot = {
           name = 'copilot',
           module = 'blink-cmp-copilot',
-          kind = 'Copilot',
           score_offset = 100,
           async = true,
         },
-      }),
-      -- completion = {
-      --   enabled_providers = insertIf(vim.g.enable_copilot, {
-      --     'lsp',
-      --     'path',
-      --     'snippets',
-      --     'buffer',
-      --     'lazydev',
-      --   }, 'copilot'),
-      -- },
+      },
     },
 
     snippets = { preset = 'luasnip' },
 
     completion = {
-      ghost_text = {
-        enabled = true,
-      },
+      -- Show documentation when selecting a completion item
+      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+
+      -- Display a preview of the selected item on the current line
+      ghost_text = { enabled = true },
     },
 
     -- experimental signature help support

@@ -14,6 +14,7 @@ return {
           enabled = true,
         },
         which_key = true,
+        blink_cmp = vim.g.enable_blink,
       },
     }
     -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha

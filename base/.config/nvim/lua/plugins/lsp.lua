@@ -99,20 +99,25 @@ return {
     ft = 'lua',
     opts = {
       library = {
+        -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
+    'mason-org/mason-lspconfig.nvim',
+    opts = {},
+    dependencies = {
+      { 'mason-org/mason.nvim', opts = {} },
+      'neovim/nvim-lspconfig',
+    },
+  },
+  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP.
       {
         'j-hui/fidget.nvim',

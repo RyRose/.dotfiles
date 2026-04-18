@@ -15,23 +15,23 @@
     enable = true;
     onActivation.cleanup = "uninstall";
     taps = [
+      "pear-devs/pear" # YouTube Music desktop app.
       "nikitabobko/tap" # For aerospace.
-      "th-ch/youtube-music" # YouTube Music desktop app.
     ];
     brews = [
-      "copilot"
       "docker" # Docker CLI.
       "ghcup" # Haskell toolchain manager.
       "node" # Node.js.
     ];
     casks = [
-      "aerospace" # Tiling window manager for macOS.
+      "nikitabobko/tap/aerospace" # Tiling window manager for macOS.
       "betterdisplay"
       "bitwarden" # Password manager.
-      "calibre" # E-book management software.
+      "copilot-cli" # GitHub Copilot.
       "crossover" # Run Windows applications on macOS.
       "discord" # Chat and communication platform.
       "docker-desktop" # Docker for Mac.
+      "dropbox" # Cloud storage service.
       "firefox" # Web browser.
       "font-jetbrains-mono-nerd-font" # Nerd Font for development.
       "ghostty" # Terminal emulator.
@@ -42,7 +42,7 @@
       "rectangle" # Window management app.
       "steam" # Gaming platform.
       "tailscale-app" # VPN service.
-      "youtube-music" # YouTube Music desktop app.
+      "pear-devs/pear/pear-desktop" # YouTube Music desktop app.
     ];
   };
 }

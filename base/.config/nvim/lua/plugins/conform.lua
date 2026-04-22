@@ -9,7 +9,7 @@ local mason_tools = {
   'goimports',
   'isort',
   'markdownlint',
-  'mdformat',
+  'markdownfmt',
   {
     'nixfmt',
     condition = function()
@@ -78,7 +78,7 @@ return {
       html = { 'prettierd', 'prettier', stop_after_first = true },
       htmlangular = { 'prettierd', 'prettier', stop_after_first = true },
       yaml = { 'yamlfmt' },
-      markdown = { 'mdformat', 'markdownlint' },
+      markdown = { 'markdownfmt', 'markdownlint' },
       templ = { 'templ' },
       sql = { 'sqlfluff' },
       nix = { 'nixfmt' },

@@ -47,7 +47,7 @@ vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('n', 'Q', '<nop>')
 
 -- LSP Restart
-vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>', { desc = 'LSP Restart' })
+vim.keymap.set('n', '<leader>lr', ':lsp restart<CR>', { desc = 'LSP Restart' })
 
 ---@type LazySpec
 return {}

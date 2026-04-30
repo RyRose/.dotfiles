@@ -108,6 +108,9 @@ def make(target: Annotated[str, typer.Argument()] = ""):
     assert shutil.which("make"), "Make is not installed."
     assert shutil.which("stow"), "Stow is not installed."
 
+    if status():
+        typer.echo()
+
     os.chdir(Path.home() / ".dotfiles")
     subprocess.run(["make", target])
 
@@ -193,7 +196,7 @@ def status():
     ]
 
     if not stow_issues and not git_status and not unpushed:
-        return
+        return False
 
     if stow_issues:
         typer.secho("Stow — missing links", bold=True)
@@ -212,6 +215,8 @@ def status():
             typer.secho(f"  {xy} {path}", fg=color)
         for commit in unpushed:
             typer.secho(f"  unpushed  {commit}", fg=typer.colors.YELLOW)
+
+    return True
 
 
 if __name__ == "__main__":

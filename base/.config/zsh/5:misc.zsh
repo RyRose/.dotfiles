@@ -22,6 +22,16 @@ command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 # Set up dotfiles cli tool completion.
 command -v dot &>/dev/null && eval "$(dot --show-completion)"
 
+# Wrap dot to support `dot cd` changing the shell directory.
+_dot_bin=${commands[dot]:-$HOME/.local/bin/dot}
+dot() {
+	if [[ "$1" == "cd" ]]; then
+		cd ~/.dotfiles || exit
+	else
+		"$_dot_bin" "$@"
+	fi
+}
+
 # Add Homebrew to PATH for Apple Silicon Macs
 export PATH="$PATH:/opt/homebrew/bin"
 

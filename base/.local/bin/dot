@@ -67,10 +67,100 @@ def edit():
     subprocess.run(["nvim"])
 
 
-@app.command(help="Initialize dotfiles management.")
-def git(args: list[str]):
+@app.command(
+    help="Run git in the dotfiles directory.",
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+)
+def git(ctx: typer.Context):
     os.chdir(Path.home() / ".dotfiles")
-    subprocess.run(["git"] + args)
+    subprocess.run(["git"] + (ctx.args or ["status"]))
+
+
+@app.command(help="Show dotfiles sync status (stow links and git).")
+def status():
+    import re
+
+    dotfiles = Path.home() / ".dotfiles"
+    home = Path.home()
+    packages = ["basedirs", "base", "home", "laptop"]
+
+    # Matches stow's built-in default ignore list (applied per path segment)
+    _STOW_IGNORE = re.compile(
+        r"^(#.*#|.+~|CVS|\.gitignore|.+,v|\.hg|RCS|\.#.+|\.git|\.gitmodules|_darcs|\.cvsignore|\.svn)$"
+    )
+
+    def stow_ignored(path: Path) -> bool:
+        return any(_STOW_IGNORE.match(part) for part in path.parts)
+
+    def is_stowed(pkg_dir: Path, src: Path) -> bool:
+        """Return True if src is covered by a stow symlink, including folded parent dirs."""
+        rel = src.relative_to(pkg_dir)
+        for depth in range(len(rel.parts)):
+            ancestor_rel = Path(*rel.parts[: depth + 1])
+            ancestor_link = home / ancestor_rel
+            ancestor_src = pkg_dir / ancestor_rel
+            if (
+                ancestor_link.is_symlink()
+                and ancestor_link.resolve() == ancestor_src.resolve()
+            ):
+                return True
+        return False
+
+    stow_issues: dict[str, list[str]] = {}
+    for pkg in packages:
+        pkg_dir = dotfiles / pkg
+        if not pkg_dir.exists():
+            continue
+        all_files = [f for f in pkg_dir.rglob("*") if not f.is_dir()]
+        files = [f for f in all_files if not stow_ignored(f.relative_to(pkg_dir))]
+        linked = [f for f in files if is_stowed(pkg_dir, f)]
+        missing = [f for f in files if not is_stowed(pkg_dir, f)]
+        # Only report issues for packages that are at least partially active
+        if linked and missing:
+            stow_issues[pkg] = [str(f.relative_to(pkg_dir)) for f in missing]
+
+    git_status = [
+        l
+        for l in subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+            cwd=dotfiles,
+        ).stdout.splitlines()
+        if l
+    ]
+
+    unpushed = [
+        l
+        for l in subprocess.run(
+            ["git", "log", "@{u}..HEAD", "--oneline"],
+            capture_output=True,
+            text=True,
+            cwd=dotfiles,
+        ).stdout.splitlines()
+        if l
+    ]
+
+    if not stow_issues and not git_status and not unpushed:
+        return
+
+    if stow_issues:
+        typer.secho("Stow — missing links", bold=True)
+        for pkg, missing in stow_issues.items():
+            typer.secho(f"  {pkg}", fg=typer.colors.YELLOW)
+            for f in missing:
+                typer.secho(f"    {f}", fg=typer.colors.RED)
+
+    if git_status or unpushed:
+        if stow_issues:
+            typer.echo()
+        typer.secho("Git", bold=True)
+        for line in git_status:
+            xy, path = line[:2], line[3:]
+            color = typer.colors.GREEN if xy[0] not in (" ", "?") else typer.colors.RED
+            typer.secho(f"  {xy} {path}", fg=color)
+        for commit in unpushed:
+            typer.secho(f"  unpushed  {commit}", fg=typer.colors.YELLOW)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,8 @@
 # ]
 # ///
 
+import click
+import json
 import os
 import platform
 import shutil
@@ -30,10 +32,59 @@ def nix_rebuild():
             raise NotImplementedError("Unsupported platform.")
 
 
+_TARGET_CACHE = Path.home() / ".local" / "state" / "dot" / "last_nix_target"
+
+
+def _load_cached_target() -> str | None:
+    try:
+        return _TARGET_CACHE.read_text().strip() or None
+    except FileNotFoundError:
+        return None
+
+
+def _save_target(target: str):
+    _TARGET_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    _TARGET_CACHE.write_text(target)
+
+
+def _flake_targets() -> list[str]:
+    flake_dir = Path.home() / ".dotfiles" / "nixos"
+    targets = []
+    for attr in ("nixosConfigurations", "darwinConfigurations"):
+        result = subprocess.run(
+            ["nix", "eval", "--json", f".#{attr}", "--apply", "builtins.attrNames"],
+            capture_output=True,
+            text=True,
+            cwd=flake_dir,
+        )
+        if result.returncode == 0:
+            targets.extend(json.loads(result.stdout))
+    return targets
+
+
+class FlakeTarget(click.ParamType):
+    name = "target"
+
+    def get_metavar(self, param: click.Parameter) -> str:
+        targets = _flake_targets()
+        return "{" + "|".join(targets) + "}" if targets else "TARGET"
+
+    def convert(self, value, param, ctx):
+        targets = _flake_targets()
+        if value not in targets:
+            self.fail(f"'{value}' is not valid. Choose from: {', '.join(targets)}", param, ctx)
+        return value
+
+
 @nix.command(help="Reload NixOS configuration.")
-def reload(target: str):
+def reload(target: Annotated[str | None, typer.Argument(click_type=FlakeTarget())] = None):
+    resolved = target or _load_cached_target()
+    if not resolved:
+        typer.echo("Available targets: " + FlakeTarget().get_metavar(None))
+        raise typer.Exit(1)
+    _save_target(resolved)
     os.chdir(Path.home() / ".dotfiles")
-    subprocess.run(["sudo", nix_rebuild(), "switch", "--flake", f"./nixos#{target}"])
+    subprocess.run(["sudo", nix_rebuild(), "switch", "--flake", f"./nixos#{resolved}"])
 
 
 @nix.command(

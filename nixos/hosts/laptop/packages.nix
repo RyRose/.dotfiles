@@ -18,6 +18,7 @@
     sd # Streamlined alternative to sed.
     starship # Terminal prompt.
     stow # Symlink manager for dotfiles.
+    tokei # Code statistics tool.
     uv
     unzip # Unzip files.
     wget # Download tool.

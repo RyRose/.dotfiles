@@ -10,4 +10,16 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 ---@type LazySpec
-return {}
+return {
+  'benomahony/uv.nvim',
+  -- Optional filetype to lazy load when you open a python file
+  ft = 'python',
+  dependencies = {
+    -- Optional dependency but recommended one of:
+    --   "folke/snacks.nvim"
+    'nvim-telescope/telescope.nvim',
+  },
+  opts = {
+    picker_integration = true,
+  },
+}

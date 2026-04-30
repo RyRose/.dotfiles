@@ -6,6 +6,7 @@
 --
 -- You can press `g?` for help in this menu.
 
+---@type LazySpec
 return {
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   -- Make sure plugin is loaded very late to ensure

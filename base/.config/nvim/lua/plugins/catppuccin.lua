@@ -6,16 +6,13 @@ return {
   init = function()
     require('catppuccin').setup {
       integrations = {
-        gitsigns = true,
-        fidget = true,
-        neotree = true,
-        cmp = true,
-        render_markdown = true,
-        telescope = {
-          enabled = true,
-        },
-        which_key = true,
         blink_cmp = true,
+        fidget = true,
+        gitsigns = true,
+        neotree = true,
+        render_markdown = true,
+        telescope = true,
+        which_key = true,
       },
     }
     -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha

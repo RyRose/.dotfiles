@@ -203,7 +203,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- LSP Plugins
+---@type LazySpec
 return {
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
